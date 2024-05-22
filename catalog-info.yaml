@@ -1,0 +1,21 @@
+# For more information about the available options please visit: http://go/backstage (VPN required)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    github.com/project-slug: Unity-Technologies/ECSGalaxySample
+  name: ECSGalaxySample
+  description: "About ECS sample demonstrating an automated simulation of teams of spaceships fighting for the control of planets"
+  labels:
+    costcenter: "5020"
+  tags:
+    - planned-public
+    - enterprise
+  links:
+    - url: https://unity.slack.com/messages/CHF6NA0SV/
+      title: "#dots-samples"
+      icon: chat
+spec:
+  type: other
+  lifecycle: production
+  owner: Unity-Technologies/dots-samples
