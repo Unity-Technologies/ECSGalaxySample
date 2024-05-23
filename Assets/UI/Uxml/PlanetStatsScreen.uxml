@@ -1,0 +1,37 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Uss/Common.uss?fileID=7433441132597879392&amp;guid=d7548ee806035f44aaad67de5de7857a&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI/Uss/Stats.uss?fileID=7433441132597879392&amp;guid=82d1930eab70d404b8bbb86642392203&amp;type=3#Stats" />
+    <ui:VisualElement name="stats__container" style="position: absolute;">
+        <ui:VisualElement name="stats-panel" class="stats-panel" style="position: absolute; width: 250px; background-color: rgba(45, 49, 53, 0.4);">
+            <ui:VisualElement name="stats-header" picking-mode="Ignore" class="settings-header" style="flex-direction: row; margin-bottom: 5px;">
+                <ui:VisualElement style="width: 5px; background-color: rgba(111, 56, 184, 0.9);" />
+                <ui:VisualElement name="stats-title-container" style="background-color: rgba(99, 106, 111, 0.74); justify-content: center; padding-top: 1px; padding-right: 1px; padding-bottom: 1px; padding-left: 1px; flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="PLANET STATS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="stats-title" style="font-size: 12px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="team-stats" class="stat-data-container" style="flex-grow: 1; justify-content: flex-start;">
+                <ui:Label tabindex="-1" text="Team" parse-escape-sequences="true" display-tooltip-when-elided="true" class="stats-label" style="flex-basis: 25%;" />
+                <ui:Label tabindex="-1" text="NONE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="team-label" class="stats-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="conversion-stats" class="stat-data-container">
+                <ui:Label tabindex="-1" text="Conversion" class="stats-label" style="flex-grow: 1; flex-basis: 25%;" />
+                <ui:ProgressBar value="0" title="0" name="conversion-progress-bar" high-value="100" class="stats-progress-bar" style="flex-basis: 75%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="resource-1-stats" class="stat-data-container">
+                <ui:Label tabindex="-1" text="Resource 1" class="stats-label" style="flex-grow: 1; flex-basis: 25%;" />
+                <ui:ProgressBar value="0" title="0" name="resource-1-bar" high-value="10000" class="stats-progress-bar" />
+                <ui:Label tabindex="-1" text="x" parse-escape-sequences="true" display-tooltip-when-elided="true" name="resource-1-rate" class="stats-label" style="-unity-text-align: upper-right; flex-grow: 1; flex-basis: 15%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="resource-2-stats" class="stat-data-container">
+                <ui:Label tabindex="-1" text="Resource 1" class="stats-label" style="flex-grow: 1; flex-basis: 25%;" />
+                <ui:ProgressBar value="0" title="0" name="resource-2-bar" high-value="10000" class="stats-progress-bar" />
+                <ui:Label tabindex="-1" text="x" parse-escape-sequences="true" display-tooltip-when-elided="true" name="resource-2-rate" class="stats-label" style="-unity-text-align: upper-right; flex-grow: 1; flex-basis: 15%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="resource-3-stats" class="stat-data-container">
+                <ui:Label tabindex="-1" text="Resource 1" class="stats-label" style="flex-grow: 1; flex-basis: 25%;" />
+                <ui:ProgressBar value="0" title="0" name="resource-3-bar" high-value="10000" class="stats-progress-bar" />
+                <ui:Label tabindex="-1" text="x" parse-escape-sequences="true" display-tooltip-when-elided="true" name="resource-3-rate" class="stats-label" style="-unity-text-align: upper-right; flex-grow: 1; flex-basis: 15%;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

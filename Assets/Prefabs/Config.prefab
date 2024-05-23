@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3479837557470525658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7217704974575650447}
+  - component: {fileID: 676721871447378474}
+  m_Layer: 0
+  m_Name: Config
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7217704974575650447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479837557470525658}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &676721871447378474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3479837557470525658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0a8396487f54196b5d24349929d2c1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TeamInfos:
+  - Name: A
+    RandomColor: 0
+    Color: {r: 1, g: 0, b: 0, a: 0}
+  - Name: B
+    RandomColor: 0
+    Color: {r: 0, g: 1, b: 0.014327049, a: 0}
+  - Name: B
+    RandomColor: 0
+    Color: {r: 0, g: 0.7605901, b: 1, a: 0}
+  - Name: B
+    RandomColor: 0
+    Color: {r: 1, g: 0.91400474, b: 0, a: 0}
+  NeutralTeamColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0}
+  ShipsCollection:
+  - {fileID: 3174148969763764589, guid: c660d1373cea9dc448b9b5e917d61df2, type: 3}
+  - {fileID: 2458674614757470442, guid: 1b9fcb4c7d6c1244a8f0578ab0a9990f, type: 3}
+  - {fileID: 3225175180465820377, guid: ee62c6b54ca9fd34f9a8033ccbd0e906, type: 3}
+  - {fileID: 1224691907486236380, guid: ab4bd1a165047114681447e031314181, type: 3}
+  - {fileID: 914804737572119250, guid: 1a1c5b157fc99204cb4dd96c22b052cb, type: 3}
+  - {fileID: 8898513965830886312, guid: 5e26986a4bab91643b235270acf26937, type: 3}
+  - {fileID: 633255178092074310, guid: 4a81770cb3ebd3042b0c54570b15e34b, type: 3}
+  BuildingsCollection:
+  - {fileID: 1139616398073976364, guid: a156b1e587cb52842a97ac0fa6db2de0, type: 3}
+  - {fileID: 675793250457588414, guid: c4e0f884eb35d1c41aecf91f55e931d7, type: 3}
+  - {fileID: 2751477300498855527, guid: 413b88512b85a994e865a07f3a892a77, type: 3}
+  - {fileID: 6985437584851599815, guid: 0719efd5ce5bd4747bdefa6ea7f92f11, type: 3}
+  - {fileID: 3380322307601477879, guid: 3171ad06a76dc024b965b00139637980, type: 3}
+  - {fileID: 3317198790714227796, guid: eb9d3fd508e205f43b9d01d997b2ea99, type: 3}
+  SpatialDatabasePrefab: {fileID: 5162905246485439887, guid: 6bb626239a95ccc4cbbdfd11469ab033,
+    type: 3}
+  TeamManagerPrefab: {fileID: 574847842314054780, guid: bc024aae365c731489892f4e43451fa9,
+    type: 3}
+  TeamManagerReferencesPrefab: {fileID: 3384564652057928891, guid: ed653dfba07b2ea4a9d5b1e774a33aa3,
+    type: 3}
+  PlanetPrefab: {fileID: 860776642231730361, guid: 5632d09cf48075349b623ffd8c48843b,
+    type: 3}
+  MoonPrefab: {fileID: 8314714712528508525, guid: e9595b24b6c29254db3b76230d1afe6a,
+    type: 3}
+  LaserPrefab: {fileID: 7696461322771098786, guid: 99d51ff630a8bf241bd454514d97e695,
+    type: 3}
+  AutoInitializeGame: 0
+  UseNonDeterministicRandomSeed: 0
+  GameInitializationRandomSeed: 12345
+  UseFixedSimulationRate: 0
+  FixedRate: 30
+  StartCameraDistanceRatio: 1.4
+  MaxTotalShips: 200000
+  MaxShipsPerTeam: 200000
+  InitialShipSpawns:
+  - IndexInCollection: 0
+    SpawnCount: 0
+  - IndexInCollection: 1
+    SpawnCount: 0
+  - IndexInCollection: 2
+    SpawnCount: 0
+  - IndexInCollection: 3
+    SpawnCount: 0
+  - IndexInCollection: 4
+    SpawnCount: 0
+  - IndexInCollection: 5
+    SpawnCount: 0
+  - IndexInCollection: 6
+    SpawnCount: 0
+  InitialBuildingIndex: 0
+  HomePlanetSpawnRadius: 700
+  MinPlanetSize: 7
+  MaxPlanetSize: 14
+  PlanetShipAssessmentsPerUpdate: 3
+  NeutralPlanetsCount: 45
+  HomePlanetResourceGenerationRate:
+    x: 100
+    y: 20
+    z: 0
+  ResourceGenerationProbabilities:
+    x: 0.5
+    y: 0.5
+    z: 0.5
+  ResourceGenerationRateMin:
+    x: 20
+    y: 20
+    z: 20
+  ResourceGenerationRateMax:
+    x: 300
+    y: 300
+    z: 300
+  PlanetResourceMaxStorage:
+    x: 20000
+    y: 20000
+    z: 20000
+  MoonDistanceFromSurface: 15
+  NumMoonsHomePlanet: 6
+  NumMoonsRange:
+    x: 3
+    y: 10
+  MoonSizeRange:
+    x: 0.7
+    y: 1.3
+  BuildSpatialDatabaseParallel: 1
+  ParallelSpatialDatabaseBuildJobsCount: 8
+  SimulationBoundsPadding: 40
+  SpatialDatabaseSubdivisions: 5
+  PlanetNavigationGridSubdivisions: 5
+  PlanetsNetworkCapacity: 7
+  ShipsSpatialDatabaseCellCapacity: 64
+  LaserEmissionPower: 20
+  ThrusterEmissionPower: 600
+  LaserSparksEmissionPower: 15000

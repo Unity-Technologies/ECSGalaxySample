@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="worker-settings-section" style="padding-right: 15px; padding-left: 15px;">
+        <ui:Label text="WORKER SETTINGS" class="subtitle" />
+        <ui:TextField label="Capture Range" name="capture-range-field" class="settings-text-field" />
+        <ui:TextField label="Capture Speed" name="capture-speed-field" class="settings-text-field" />
+        <ui:TextField label="Build Range" name="build-range-field" class="settings-text-field" />
+        <ui:TextField label="Build Speed" name="build-speed-field" class="settings-text-field" />
+    </ui:VisualElement>
+</ui:UXML>

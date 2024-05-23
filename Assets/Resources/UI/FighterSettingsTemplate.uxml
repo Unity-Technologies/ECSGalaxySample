@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="fighter-settings-section" style="padding-right: 15px; padding-left: 15px;">
+        <ui:Label text="FIGHTER SETTINGS" class="subtitle" />
+        <ui:TextField label="Detection Range" name="detection-range-field" class="settings-text-field" />
+        <ui:TextField label="Attack Range" name="attack-range-field" class="settings-text-field" />
+        <ui:TextField label="Attack Delay" name="attack-delay-field" class="settings-text-field" />
+        <ui:TextField label="Attack Damage" name="attack-damage-field" class="settings-text-field" />
+        <ui:TextField label="Dot Prod Threshold&#10;For Target In Sights" name="dot-prod-threshold-for-target-in-sights-field" class="settings-text-field" />
+        <ui:TextField label="ShipDetectionInterval" name="ship-detection-interval-field" class="settings-text-field" />
+    </ui:VisualElement>
+</ui:UXML>

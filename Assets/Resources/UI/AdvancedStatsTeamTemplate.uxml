@@ -1,0 +1,41 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="stats-team__container" style="flex-direction: row; margin-bottom: 7px;">
+        <ui:VisualElement name="team-color" style="background-color: rgb(229, 18, 18); width: 5px; margin-right: 3px;" />
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Label tabindex="-1" text="Team" parse-escape-sequences="true" display-tooltip-when-elided="true" name="stats-team-name-label" style="-unity-font-style: bold;" />
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="SHIP COUNT" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ship-count-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="PLANET COUNT" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="planet-count-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="MOON COUNT" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="moon-count-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="BUILDING COUNT" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="building-count-label" />
+            </ui:VisualElement>
+            <ui:Label tabindex="-1" text="RESOURCES" parse-escape-sequences="true" display-tooltip-when-elided="true" style="margin-top: 3px; margin-bottom: 3px; margin-right: 1px; margin-left: 1px; -unity-font-style: bold;" />
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; margin-left: 5px;">
+                <ui:Label tabindex="-1" text="GENERATION RATE" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="generation-rate-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; margin-left: 5px;">
+                <ui:Label tabindex="-1" text="STORAGE TOTAL" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="storage-total-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; margin-left: 5px;">
+                <ui:Label tabindex="-1" text="STORAGE MIN" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="storage-min-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1; flex-direction: row; justify-content: space-between; margin-left: 5px;">
+                <ui:Label tabindex="-1" text="STORAGE MAX" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="storage-max-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

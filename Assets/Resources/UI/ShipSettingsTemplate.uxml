@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="ship-settings-section" style="margin-top: 10px; margin-bottom: 10px;">
+        <ui:VisualElement name="subtitle-container" style="flex-direction: row; align-items: center; padding-left: 10px; background-color: rgba(99, 106, 111, 0.74);">
+            <ui:Label tabindex="-1" text="SECTION NAME" parse-escape-sequences="true" display-tooltip-when-elided="true" name="section-title-label" style="font-size: 20px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 1; padding-right: 15px; padding-top: 0; padding-bottom: 0; padding-left: 15px;">
+            <ui:Label text="GENERAL MOVEMENT" class="subtitle" />
+            <ui:TextField label="Max Speed" name="max-speed-field" class="settings-text-field" />
+            <ui:TextField label="Acceleration" name="acceleration-field" class="settings-text-field" />
+            <ui:TextField label="Steering Sharpness" name="steering-sharpness-field" class="settings-text-field" />
+            <ui:Label text="CONSTRUCTION" class="subtitle" />
+            <ui:TextField label="Value" name="construction-value-field" class="settings-text-field" />
+            <ui:TextField label="Build Probability For Ship Type" name="build-probability-for-ship-type-field" class="settings-text-field" />
+            <ui:Vector3Field label="ResourcesCost" name="resources-cost-field" class="settings-text-field settings-vector" />
+            <ui:TextField label="Build Time" name="build-time-field" class="settings-text-field" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

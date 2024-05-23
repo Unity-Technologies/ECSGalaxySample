@@ -1,0 +1,70 @@
+:root {
+    --color-accent: rgb(111, 56, 184);
+    --light-grey: rgba(80, 80, 80, 0.7);
+    --dark-grey: rgb(26, 28, 29);
+    --white: rgb(210, 235, 249);
+}
+
+.game-stats-container {
+    width: 250px;
+    padding: 10px;
+    background-color: var(--light-grey);
+    position: absolute;
+    top: 0;
+    transition-duration: 0.25s;
+}
+
+.game-stats-container .unity-label {
+    color: var(--white);
+    font-size: 12px;
+}
+
+.collapsed {
+    background-color: rgba(0, 0, 0, 0);
+    top: -125px;
+}
+
+.game-stats-foldout {
+}
+
+.game-stats-foldout #unity-content {
+    margin-left: 10px;
+}
+
+.game-stats-foldout #unity-checkmark {
+    -unity-background-image-tint-color: var(--white);
+}
+
+.game-stats-foldout .unity-label {
+    margin: 1px;
+    padding: 0;
+    font-size: 10px;
+}
+
+.stats-scroll-view {
+}
+
+.stats-scroll-view .unity-slider {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+    width: 5px;
+    min-width: 5px;
+}
+
+.stats-scroll-view #unity-tracker {
+    background-color: rgba(50, 50, 51, 0.94);
+    border-width: 0;
+}
+
+.stats-scroll-view #unity-dragger {
+    background-color: rgba(148, 148, 148, 0.88);
+    left: 0;
+}
+
+.stats-scroll-view .unity-repeat-button {
+    display: none;
+}
+
+.unity-text-element {
+}

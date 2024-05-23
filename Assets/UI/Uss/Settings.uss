@@ -1,0 +1,84 @@
+:root {
+    --color-accent: rgb(111, 56, 184);
+    --light-grey: rgba(80, 80, 80, 0.7);
+    --dark-grey: rgb(26, 28, 29);
+}
+
+.hide-in-simulation {
+}
+
+.panel {
+    width: 600px;
+    height: 100%;
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=6483214490290818284&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#panel-base');
+    -unity-background-image-tint-color: rgba(45, 49, 53, 0.8);
+    padding: 20px;
+}
+
+.panel .unity-text-element {
+    color: rgb(210, 235, 249);
+}
+
+.settings-header {
+    flex-direction: row;
+    height: 50px;
+}
+
+.tabs {
+}
+
+.content {
+}
+
+.settings-form {
+    padding: 10px;
+}
+
+.settings-form > .unity-base-field {
+    margin: 5px;
+}
+
+.tab-button {
+    width: 80px;
+    height: 80px;
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=4415747742231414905&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#button-fill-3');
+    -unity-background-image-tint-color: var(--light-grey);
+    margin-bottom: 5px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab-button:hover {
+    opacity: 0.75;
+}
+
+.tab-selected {
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=4415747742231414905&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#button-fill-3');
+    -unity-background-image-tint-color: var(--color-accent);
+    padding: 15px;
+}
+
+.tab-button-icon {
+    width: 80%;
+    height: 80%;
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-1387584986330449328&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#ship-icon');
+}
+
+.tab-content-hidden {
+    display: none;
+}
+
+.header-container {
+    justify-content: center;
+    padding: 10px;
+    flex-grow: 1;
+    background-color: var(--light-grey);
+}
+
+.subtitle {
+    margin: 10px 0;
+    padding: 0;
+    font-size: 16px;
+    -unity-font-style: bold;
+}

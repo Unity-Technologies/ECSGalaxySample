@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="MenuScreen" src="project://database/Assets/UI/Uxml/HomeScreen.uxml?fileID=9197481963319205126&amp;guid=5ee72e4f9f2c33b4da41edb5d9b5ac11&amp;type=3#HomeScreen" />
+    <ui:Template name="HUD" src="project://database/Assets/UI/Uxml/HUD.uxml?fileID=9197481963319205126&amp;guid=0e495055733ce8f4c88679eefb8bf648&amp;type=3#HUD" />
+    <ui:Template name="StatsScreen" src="project://database/Assets/UI/Uxml/PlanetStatsScreen.uxml?fileID=9197481963319205126&amp;guid=f89538ab4d5d49b41b78d1bf4d2f822b&amp;type=3#PlanetStatsScreen" />
+    <Style src="project://database/Assets/UI/Uss/Common.uss?fileID=7433441132597879392&amp;guid=d7548ee806035f44aaad67de5de7857a&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI/Uss/Buttons.uss?fileID=7433441132597879392&amp;guid=84bab86181e13af4782a93e6836fb75b&amp;type=3#Buttons" />
+    <ui:Instance template="MenuScreen" name="MenuScreen" picking-mode="Ignore" class="full-screen" />
+    <ui:Instance template="HUD" name="HUD">
+        <ui:Instance template="StatsScreen" name="PlanetStatsScreen" style="position: absolute;" />
+    </ui:Instance>
+</ui:UXML>

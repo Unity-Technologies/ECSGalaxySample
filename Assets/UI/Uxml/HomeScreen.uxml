@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="SettingScreen" src="project://database/Assets/UI/Uxml/SettingScreen.uxml?fileID=9197481963319205126&amp;guid=33040b02821d792419e40bfc55ea7eb4&amp;type=3#SettingScreen" />
+    <Style src="project://database/Assets/UI/Uss/Common.uss?fileID=7433441132597879392&amp;guid=d7548ee806035f44aaad67de5de7857a&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI/Uss/Buttons.uss?fileID=7433441132597879392&amp;guid=84bab86181e13af4782a93e6836fb75b&amp;type=3#Buttons" />
+    <ui:VisualElement name="menu__container" picking-mode="Ignore" style="width: 100%; height: 100%; align-items: flex-end; justify-content: flex-end; padding-top: 50px; padding-right: 50px; padding-bottom: 50px; padding-left: 50px;">
+        <ui:Instance template="SettingScreen" name="SettingScreen" style="width: 500px; flex-grow: 1;" />
+        <ui:VisualElement name="menu__options" style="width: 500px; display: flex; margin-top: 10px;">
+            <ui:VisualElement name="return-button" class="button">
+                <ui:VisualElement name="button-background" class="button-bg">
+                    <ui:Label tabindex="-1" text="RETURN" parse-escape-sequences="true" display-tooltip-when-elided="true" name="button-label" class="button-label" />
+                    <ui:VisualElement name="button-icon" class="button-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="simulate-button" class="button">
+                <ui:VisualElement name="button-background" class="button-bg">
+                    <ui:Label tabindex="-1" text="SIMULATE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="button-label" class="button-label" />
+                    <ui:VisualElement name="button-icon" class="button-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="settings-button" class="button">
+                <ui:VisualElement name="button-background" class="button-bg">
+                    <ui:Label tabindex="-1" text="SETTINGS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="button-label" class="button-label" />
+                    <ui:VisualElement name="button-icon" class="button-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="exit-button" class="button">
+                <ui:VisualElement name="button-background" class="button-bg">
+                    <ui:Label tabindex="-1" text="EXIT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="button-label" class="button-label" />
+                    <ui:VisualElement name="button-icon" class="button-icon" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

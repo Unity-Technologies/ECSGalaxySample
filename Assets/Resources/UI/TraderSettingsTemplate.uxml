@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="trader-settings-section" style="padding-right: 15px; padding-left: 15px;">
+        <ui:Label text="TRADER SETTINGS" class="subtitle" />
+        <ui:TextField picking-mode="Ignore" label="Resource Exchange Range" name="resource-exchange-range-field" class="settings-text-field" />
+        <ui:TextField picking-mode="Ignore" label="Resource Carry Capacity" name="resource-carry-capacity-field" class="settings-text-field" />
+        <ui:TextField picking-mode="Ignore" label="Resource Carry Minimum Load" name="resource-carry-minimum-load-field" class="settings-text-field" />
+    </ui:VisualElement>
+</ui:UXML>

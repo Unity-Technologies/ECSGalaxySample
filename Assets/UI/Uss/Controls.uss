@@ -1,0 +1,147 @@
+:root {
+    --color-accent: rgb(111, 56, 184);
+    --light-grey: rgba(80, 80, 80, 0.7);
+    --dark-grey: rgb(26, 28, 29);
+}
+
+.settings-scroll-view {
+}
+
+.settings-scroll-view .unity-slider {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 15px;
+    min-width: 15px;
+}
+
+.settings-scroll-view #unity-tracker {
+    background-color: rgba(50, 50, 51, 0.94);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.settings-scroll-view #unity-dragger {
+    background-color: rgba(148, 148, 148, 0.88);
+    left: 0;
+}
+
+.settings-scroll-view .unity-repeat-button {
+    display: none;
+}
+
+.settings-text-field {
+    padding: 0;
+    margin: 5px 0 0;
+}
+
+.settings-text-field .unity-label {
+    min-width: 200px;
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
+}
+
+.settings-text-field #unity-text-input {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: var(--dark-grey);
+}
+
+.settings-text-field #unity-text-input .unity-text-element {
+}
+
+.settings-slider {
+}
+
+.settings-slider #unity-drag-container {
+    justify-content: center;
+}
+
+.settings-slider #unity-tracker {
+    top: auto;
+    height: 15px;
+    border-width: 0;
+}
+
+.settings-slider #unity-dragger {
+    width: 15px;
+    height: 15px;
+    border-width: 0;
+    top: auto;
+    justify-content: center;
+}
+
+.settings-slider #unity-text-input {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+}
+
+.settings-slider #unity-thumb-min {
+    border-width: 0;
+    margin: 0;
+    min-width: 15px;
+    max-height: 15px;
+    min-height: 15px;
+}
+
+.settings-slider #unity-thumb-max {
+    border-width: 0;
+    top: auto;
+    min-width: 15px;
+    max-height: 15px;
+    min-height: 15px;
+    margin: 0;
+}
+
+.settings-vector {
+}
+
+.settings-vector .unity-composite-field__input {
+    flex-direction: row;
+}
+
+.settings-vector .unity-base-text-field {
+    flex-grow: 1;
+}
+
+.settings-vector .unity-base-text-field__label {
+    min-width: auto;
+    margin-right: 2px;
+}
+
+.settings-toggle {
+    margin: 0;
+    padding: 0;
+}
+
+.settings-toggle .unity-label {
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-left;
+    min-width: 200px;
+}
+
+.settings-toggle .unity-toggle__input {
+    justify-content: flex-end;
+}
+
+.settings-toggle #unity-checkmark {
+    border-width: 0;
+    background-color: rgb(26, 28, 29);
+    margin: 2px;
+}
+
+.settings-toggle .unity-toggle__input:checked #unity-checkmark {
+    -unity-background-image-tint-color: var(--color-accent);
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=6779377044966281343&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#toggle-check');
+}

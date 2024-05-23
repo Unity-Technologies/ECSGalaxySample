@@ -1,0 +1,105 @@
+:root {
+    --color-accent: rgb(111, 56, 184);
+    --light-grey: rgba(80, 80, 80, 0.7);
+    --dark-grey: rgb(26, 28, 29);
+    --white: rgb(210, 235, 249);
+}
+
+.button {
+    flex-grow: 1;
+    height: 60px;
+    -unity-background-image-tint-color: var(--white);
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=2122640020565729214&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#button-outline');
+    margin: 3px;
+    justify-content: center;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.button-bg {
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-5827696888111930097&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#button-fill');
+    -unity-background-image-tint-color: rgba(210, 235, 249, 0.01);
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+    padding: 10px;
+    transition-duration: 0.2s;
+    width: 100%;
+    height: 100%;
+}
+
+.button-label {
+    margin: 0 8px 0 0;
+    padding: 0;
+    color: var(--white);
+    -unity-font-style: normal;
+    transition-duration: 0.2s;
+    font-size: 24px;
+    margin-right: 15px;
+}
+
+.button-icon {
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-5983814779707131034&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#right-arrow');
+    height: 20px;
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.2s;
+    width: 10px;
+}
+
+.button:hover .button-bg {
+    -unity-background-image-tint-color: var(--white);
+    opacity: 0.8;
+}
+
+.button:hover .button-label {
+    color: var(--dark-grey);
+    margin-right: 25px;
+}
+
+.button:hover .button-icon {
+    -unity-background-image-tint-color: rgb(37, 56, 66);
+}
+
+.button:disabled .button-bg {
+    -unity-background-image-tint-color: rgba(210, 235, 249, 0.9);
+}
+
+.button:disabled .button-label {
+    color: rgb(37, 56, 66);
+    margin-right: 20px;
+}
+
+.button:disabled .button-icon {
+    -unity-background-image-tint-color: rgb(37, 56, 66);
+}
+
+.corner-button {
+    border-width: 0;
+    width: 50px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background-image: url('project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-3646665445975427376&guid=206af7d3639a52b4ba490dcdfc2a5bb3&type=3#button-fill-2');
+    -unity-background-image-tint-color: var(--color-accent);
+    background-color: rgba(188, 188, 188, 0);
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+}
+
+.corner-button:hover {
+    opacity: 0.6;
+}
+
+.accent-button {
+    background-color: rgba(188, 188, 188, 0);
+    -unity-background-image-tint-color: var(--color-accent);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    font-size: 18px;
+}
+
+.accent-button:hover {
+    opacity: 0.8;
+}

@@ -1,0 +1,65 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Uss/Common.uss?fileID=7433441132597879392&amp;guid=d7548ee806035f44aaad67de5de7857a&amp;type=3#Common" />
+    <Style src="project://database/Assets/UI/Uss/Settings.uss?fileID=7433441132597879392&amp;guid=ecaf5eeb29ca3324a8d3467108cbd9d4&amp;type=3#Settings" />
+    <Style src="project://database/Assets/UI/Uss/Controls.uss?fileID=7433441132597879392&amp;guid=8ad47d340a423eb4b8c321e8604ccb9d&amp;type=3#Controls" />
+    <Style src="project://database/Assets/UI/Uss/Buttons.uss?fileID=7433441132597879392&amp;guid=84bab86181e13af4782a93e6836fb75b&amp;type=3#Buttons" />
+    <ui:VisualElement name="settings__container" style="position: absolute; height: 100%; right: 0; flex-direction: row;">
+        <ui:VisualElement name="settings-tabs" class="tabs">
+            <ui:VisualElement name="systems-tab" class="tab-button tab-selected" style="margin-top: 100px;">
+                <ui:VisualElement name="tab-icon" class="tab-button-icon" style="background-image: url(&quot;project://database/Assets/Textures/UI/ui-atlas.psd?fileID=3060015601021846722&amp;guid=206af7d3639a52b4ba490dcdfc2a5bb3&amp;type=3#sistem-icon&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ship-tab" class="tab-button">
+                <ui:VisualElement name="tab-icon" class="tab-button-icon" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="settings-tab-content" picking-mode="Ignore" class="content panel" style="flex-grow: 1; justify-content: space-between;">
+            <ui:VisualElement name="systems-content">
+                <ui:VisualElement name="settings-header" picking-mode="Ignore" class="settings-header" style="flex-direction: row; flex-shrink: 0;">
+                    <ui:VisualElement picking-mode="Ignore" style="width: 7px; background-color: rgba(111, 56, 184, 0.9);" />
+                    <ui:VisualElement name="settings-title-container" picking-mode="Ignore" class="header-container">
+                        <ui:Label tabindex="-1" text="&lt;b&gt;SIMULATION&lt;/b&gt; SETTINGS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings-title" picking-mode="Ignore" style="font-size: 20px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="settings-content">
+                    <ui:ScrollView class="settings-scroll-view">
+                        <ui:VisualElement class="settings-form" style="flex-grow: 1;">
+                            <ui:TextField picking-mode="Ignore" label="Time Scale" name="time-scale-field" class="settings-text-field" />
+                            <ui:TextField picking-mode="Ignore" label="Team Count" name="team-count-field" class="settings-text-field hide-in-simulation" />
+                            <ui:Toggle label="Use NonDeterministic Random Seed" name="use-non-deterministic-random-seed-toggle" class="settings-toggle hide-in-simulation" />
+                            <ui:Toggle label="Use Fixed Simulation Rate" name="use-fixed-simulation-rate-toggle" class="settings-toggle" />
+                            <ui:TextField picking-mode="Ignore" label="Fixed Rate" name="fixed-rate-field" class="settings-text-field" />
+                            <ui:TextField picking-mode="Ignore" label="Max total ships" name="max-total-ships-field" class="settings-text-field" />
+                            <ui:TextField picking-mode="Ignore" label="Max ships per team" name="max-team-ships-field" class="settings-text-field" />
+                            <ui:TextField picking-mode="Ignore" label="Planet Spawn Radius" name="home-planet-spawn-radius-field" class="settings-text-field hide-in-simulation" />
+                            <ui:TextField picking-mode="Ignore" label="Neutral Planet Count" name="neutral-planet-count-field" class="settings-text-field hide-in-simulation" />
+                            <ui:TextField picking-mode="Ignore" label="Num Moons Home Planet" name="num-moons-home-planet-field" class="settings-text-field hide-in-simulation" />
+                            <ui:Vector2Field label="Num Moons Range" name="num-moons-range-field" class="settings-text-field settings-vector hide-in-simulation" />
+                            <ui:Toggle label="Build Spatial Database Parallel" name="build-spatial-database-parallel-toggle" class="settings-toggle" />
+                            <ui:Vector3Field label="Home Planet Resource&#10;Generation Rate" name="home-planet-resource-generation-rate-field" class="settings-vector settings-text-field hide-in-simulation" />
+                            <ui:Vector3Field label="Resource Generation&#10;Probabilities" name="resource-generation-probability-field" class="settings-vector settings-text-field hide-in-simulation" />
+                            <ui:Vector3Field label="Resource Generation&#10;Rate Min" name="resource-generation-rate-min-field" class="settings-vector settings-text-field hide-in-simulation" />
+                            <ui:Vector3Field label="Resource Generation&#10;Rate Max" name="resource-generation-rate-max-field" class="settings-vector settings-text-field hide-in-simulation" />
+                            <ui:Vector3Field label="Planet Resource&#10;Max Storage" name="planet-resource-max-storage-field" class="settings-vector settings-text-field hide-in-simulation" />
+                        </ui:VisualElement>
+                    </ui:ScrollView>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="ship-content" picking-mode="Ignore" class="tab-content-hidden">
+                <ui:VisualElement name="settings-header" picking-mode="Ignore" class="settings-header" style="flex-direction: row; flex-shrink: 0;">
+                    <ui:VisualElement picking-mode="Ignore" style="width: 7px; background-color: rgba(111, 56, 184, 0.9);" />
+                    <ui:VisualElement name="settings-title-container" picking-mode="Ignore" class="header-container">
+                        <ui:Label tabindex="-1" text="&lt;b&gt;SHIP&lt;/b&gt; SETTINGS" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings-title" picking-mode="Ignore" style="font-size: 20px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="settings-content">
+                    <ui:ScrollView name="ScrollView" class="settings-scroll-view">
+                        <ui:VisualElement name="ship-settings-container" class="settings-form" style="flex-grow: 1;" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="settings-options" style="flex-direction: row; height: 50px; flex-shrink: 0; justify-content: flex-end;">
+                <ui:Button text="OK" name="settings-back-button" class="accent-button" style="background-image: url(&quot;project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-5827696888111930097&amp;guid=206af7d3639a52b4ba490dcdfc2a5bb3&amp;type=3#button-fill&quot;); width: 150px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

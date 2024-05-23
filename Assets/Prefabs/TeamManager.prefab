@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &574847842314054780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 846128523702798061}
+  - component: {fileID: 2028449443394124657}
+  - component: {fileID: 1392727068575825495}
+  m_Layer: 0
+  m_Name: TeamManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &846128523702798061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574847842314054780}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 84.83207, y: -7.53525, z: 6.961972}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2028449443394124657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574847842314054780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d3396579abac94ab2eaf00f6cee0f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FighterAttackPlanetConsideration: 1
+  FighterAttackThreatLevelConsiderationClamp:
+    x: 0.7
+    y: 1
+  FighterAttackResourceScoreConsiderationClamp:
+    x: 0.3
+    y: 1
+  FighterAttackDistanceFromOwnedPlanetsConsiderationClamp:
+    x: 0.8
+    y: 1
+  FighterDefendPlanetConsideration: 0.2
+  FighterDefendThreatLevelConsiderationClamp:
+    x: 0.1
+    y: 1
+  FighterDefendResourceScoreConsiderationClamp:
+    x: 0.3
+    y: 1
+  WorkerCapturePlanetConsideration: 1
+  WorkerCaptureSafetyLevelConsiderationClamp:
+    x: 0.5
+    y: 1
+  WorkerCaptureResourceScoreConsiderationClamp:
+    x: 0.6
+    y: 1
+  WorkerCaptureDistanceFromOwnedPlanetsConsiderationClamp:
+    x: 0.5
+    y: 1
+  WorkerBuildConsideration: 1
+  WorkerBuildSafetyLevelConsiderationClamp:
+    x: 0.1
+    y: 1
+  WorkerBuildResourceScoreConsiderationClamp:
+    x: 0.1
+    y: 1
+  TraderSafetyLevelConsiderationClamp:
+    x: 0.5
+    y: 1
+  MaxShipProductionBias: 100
+  DesiredFightersPerOtherShip: 1
+  DesiredWorkerValuePerPlanet: 10
+  DesiredTraderValuePerOwnedPlanet: 1
+--- !u!114 &1392727068575825495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 574847842314054780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4b3ed39223f5854fbf7b456dea7dcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Uss/GameStats.uss?fileID=7433441132597879392&amp;guid=47142e25972ffab4d9cf9f5b7b7df866&amp;type=3#GameStats" />
+    <ui:VisualElement name="game-stats__container" class="game-stats-container">
+        <ui:VisualElement name="stats-panel" style="flex-grow: 1; margin-bottom: 10px; transition-duration: 0.5s;">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="FPS (AVG)" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="fps-avg-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="VisualElement" style="flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="FPS (WORST)" parse-escape-sequences="true" display-tooltip-when-elided="true" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="fps-worst-label" />
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                <ui:Label tabindex="-1" text="TOTAL SHIP COUNT" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="-unity-font-style: bold;" />
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ship-count-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Foldout text="ADVANCED" value="true" name="advanced-stats-foldout" class="game-stats-foldout">
+            <ui:ScrollView name="advanced-stats-team-scroll-view" class="stats-scroll-view" style="max-height: 800px;" />
+        </ui:Foldout>
+        <ui:VisualElement name="collapse-button" style="justify-content: center; align-items: center;">
+            <ui:VisualElement name="collapse-icon" style="width: 10px; height: 15px; background-image: url(&quot;project://database/Assets/Textures/UI/ui-atlas.psd?fileID=-5983814779707131034&amp;guid=206af7d3639a52b4ba490dcdfc2a5bb3&amp;type=3#right-arrow&quot;); -unity-background-scale-mode: scale-to-fit; rotate: 90deg;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
