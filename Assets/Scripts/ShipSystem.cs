@@ -380,9 +380,9 @@ namespace Galaxy
                             {
                                 ShipData shipData = ship.ShipData.Value;
 
-                                ship.NavigationTargetEntity = Entity.Null;
                                 _tmpFinalImportances.Clear();
                                 float importancesTotal = 0f;
+                                float currentActionImportance = -1f;
 
                                 for (int i = 0; i < fighterActionsBuffer.Length; i++)
                                 {
@@ -396,6 +396,18 @@ namespace Galaxy
 
                                     _tmpFinalImportances.Add(finalImportance);
                                     importancesTotal += finalImportance;
+                                    
+                                    // Try find the current action's new importance
+                                    if (currentActionImportance < 0f && fitghterAction.Entity == ship.NavigationTargetEntity)
+                                    {
+                                        currentActionImportance = fitghterAction.Importance;
+                                    }
+                                }
+
+                                // If couldn't find current action, clear data
+                                if (currentActionImportance < 0f)
+                                {
+                                    ship.NavigationTargetEntity = Entity.Null;
                                 }
                                 
                                 // Get a random that is unique to this combo of entities, so AI decisions have some
@@ -407,10 +419,15 @@ namespace Galaxy
                                     in _tmpFinalImportances, ref persistentRandom);
                                 if (weightedRandomIndex >= 0)
                                 {
-                                    FighterAction fitghterAction = fighterActionsBuffer[weightedRandomIndex];
-                                    ship.NavigationTargetEntity = fitghterAction.Entity;
-                                    ship.NavigationTargetPosition = fitghterAction.Position;
-                                    ship.NavigationTargetRadius = fitghterAction.Radius;
+                                    FighterAction fighterAction = fighterActionsBuffer[weightedRandomIndex];
+
+                                    // Only pick a different action if the new action is significantly more important
+                                    if (_tmpFinalImportances[weightedRandomIndex] > currentActionImportance * 2f)
+                                    {
+                                        ship.NavigationTargetEntity = fighterAction.Entity;
+                                        ship.NavigationTargetPosition = fighterAction.Position;
+                                        ship.NavigationTargetRadius = fighterAction.Radius;
+                                    }
                                 }
                             }
                         }
@@ -494,11 +511,10 @@ namespace Galaxy
                         Random persistentRandom = GameUtilities.GetDeterministicRandom(entity.Index);
                         
                         // Clear data
-                        worker.DesiredBuildingPrefab = Entity.Null;
-                        ship.NavigationTargetEntity = Entity.Null;
                         _tmpFinalImportances.Clear();
                         float importancesTotal = 0f;
-
+                        float currentActionImportance = -1f;
+                        
                         for (int i = 0; i < workerActionsBuffer.Length; i++)
                         {
                             WorkerAction workerAction = workerActionsBuffer[i];
@@ -510,6 +526,19 @@ namespace Galaxy
 
                             _tmpFinalImportances.Add(finalImportance);
                             importancesTotal += finalImportance;
+                                    
+                            // Try find the current action's new importance
+                            if (currentActionImportance < 0f && workerAction.Entity == ship.NavigationTargetEntity)
+                            {
+                                currentActionImportance = workerAction.Importance;
+                            }
+                        }
+
+                        // If couldn't find current action, clear data
+                        if (currentActionImportance < 0f)
+                        {
+                            worker.DesiredBuildingPrefab = Entity.Null;
+                            ship.NavigationTargetEntity = Entity.Null;
                         }
 
                         int weightedRandomIndex = GameUtilities.GetWeightedRandomIndex(importancesTotal,
@@ -517,14 +546,19 @@ namespace Galaxy
                         if (weightedRandomIndex >= 0)
                         {
                             WorkerAction workerAction = workerActionsBuffer[weightedRandomIndex];
-                            ship.NavigationTargetEntity = workerAction.Entity;
-                            ship.NavigationTargetPosition = workerAction.Position;
-                            ship.NavigationTargetRadius = workerAction.PlanetRadius;
-                            
-                            // Build action
-                            if (workerAction.Type == 1)
+
+                            // Only pick a different action if the new action is significantly more important
+                            if (_tmpFinalImportances[weightedRandomIndex] > currentActionImportance * 2f)
                             {
-                                worker.DesiredBuildingPrefab = workerAction.BuildingPrefab;
+                                ship.NavigationTargetEntity = workerAction.Entity;
+                                ship.NavigationTargetPosition = workerAction.Position;
+                                ship.NavigationTargetRadius = workerAction.PlanetRadius;
+
+                                // Build action
+                                if (workerAction.Type == 1)
+                                {
+                                    worker.DesiredBuildingPrefab = workerAction.BuildingPrefab;
+                                }
                             }
                         }
                     }
