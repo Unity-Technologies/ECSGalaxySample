@@ -2,6 +2,8 @@
 
 <img src="./_Documentation/Images/GalaxySample.gif" alt="game" height="350"/>
 
+> See [ProjectVersion](./ProjectSettings/ProjectVersion.txt) for minimum supported Unity version.
+
 This sample demonstrates a large-scale simulation of teams of spaceships fighting for the control of planets. 
 
 Fighter ships defend and attack planets, worker ships capture planets and build buildings on planet moons, and trader ships distribute resources across planets. Buildings use their planet's resources to build ships, provide defensive capabilities, or upgrade produced ships.
