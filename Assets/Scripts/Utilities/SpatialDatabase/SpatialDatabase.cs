@@ -300,7 +300,7 @@ public struct SpatialDatabase : IComponentData
         UnsafeList<SpatialDatabaseElement> elements =
             new UnsafeList<SpatialDatabaseElement>((SpatialDatabaseElement*)elementsBuffer.GetUnsafeReadOnlyPtr(),
                 elementsBuffer.Length);
-        QueryAABB(in spatialDatabase, in cells, in elements, center, halfExtents, ref collector);
+        QueryAABBCellProximityOrder(in spatialDatabase, in cells, in elements, center, halfExtents, ref collector);
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
