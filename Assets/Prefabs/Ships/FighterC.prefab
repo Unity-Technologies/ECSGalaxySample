@@ -59,6 +59,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -156,6 +159,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -253,6 +259,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -350,6 +359,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -447,6 +459,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -560,7 +575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a163f6bdc26f0db4a95649027a18fe6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretData: {fileID: 11400000, guid: a452de80ad7aa574eae219096a5c5984, type: 2}
+  TurretData: {fileID: 11400000, guid: 93a3c77decf64884bb52ffba8b0655f7, type: 2}
 --- !u!1 &3997975611338894563
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +635,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -733,7 +751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a163f6bdc26f0db4a95649027a18fe6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretData: {fileID: 11400000, guid: a452de80ad7aa574eae219096a5c5984, type: 2}
+  TurretData: {fileID: 11400000, guid: 93a3c77decf64884bb52ffba8b0655f7, type: 2}
 --- !u!1 &5438772766985987028
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a163f6bdc26f0db4a95649027a18fe6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretData: {fileID: 11400000, guid: a452de80ad7aa574eae219096a5c5984, type: 2}
+  TurretData: {fileID: 11400000, guid: 93a3c77decf64884bb52ffba8b0655f7, type: 2}
 --- !u!1 &6401386322671812696
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +887,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -966,6 +987,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1063,6 +1087,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1186,7 +1213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 965152697874588280, guid: 0777aa65948b81143acf7cc98de78c06,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     - target: {fileID: 991286811665229214, guid: 0777aa65948b81143acf7cc98de78c06,
@@ -1211,7 +1238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2904986993742482216, guid: 0777aa65948b81143acf7cc98de78c06,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     - target: {fileID: 4974183886084148900, guid: 0777aa65948b81143acf7cc98de78c06,
@@ -1236,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5544121477425540031, guid: 0777aa65948b81143acf7cc98de78c06,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     m_RemovedComponents: []
@@ -1346,6 +1373,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1435,7 +1465,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444b31b693a25c64fa0d2b1a00bbbd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipData: {fileID: 11400000, guid: 51877b59eb1c8fe4b902de4f82f79f7e, type: 2}
+  ShipData:
+    Data:
+      MaxSpeed: 10
+      Acceleration: 8
+      SteeringSharpness: 0.2
+      ShouldAvoidTargetPlanet: 1
+      PlanetOrbitOffset: 1
+      PlanetAvoidanceDistance: 30
+      PlanetAvoidanceRelativeOffset: 3
+      MaxDistanceSqForPlanetProximityImportanceScaling: 10000
+      PlanetProximityImportanceRemap:
+        x: 0.1
+        y: 1
+      Value: 3000
+      BuildProbabilityForShipType: 4
+      ResourcesCost:
+        x: 200
+        y: 200
+        z: 100
+      BuildTime: 3
+      ExplosionScaleRange:
+        x: 30
+        y: 30
+      ThrusterLocalPosition:
+        x: 0
+        y: 3.65
+        z: -31.82
+      ThrusterSize: 3.4
+      ThrusterLength: 2.8
 --- !u!114 &2178450217086384715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,7 +1506,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c9b7d66e024e8ea17a263c0ad3fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FighterData: {fileID: 11400000, guid: 87112691c7c805e4e864eeb32bf651e6, type: 2}
+  FighterData:
+    Data:
+      DetectionRange: -1
+      AttackRange: 0
+      AttackDelay: 0
+      AttackDamage: 0
+      DotProdThresholdForTargetInSights: -1
+      ShipDetectionInterval: 10
 --- !u!114 &7987247728555701133
 MonoBehaviour:
   m_ObjectHideFlags: 0

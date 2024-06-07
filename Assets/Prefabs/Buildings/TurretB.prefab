@@ -75,17 +75,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -5251318825463688052, guid: 9b7c683c2b281aa42b34f4c6123e5427,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: -2906563528407522564, guid: 9b7c683c2b281aa42b34f4c6123e5427,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: -2279754186113223701, guid: 9b7c683c2b281aa42b34f4c6123e5427,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 919132149155446097, guid: 9b7c683c2b281aa42b34f4c6123e5427,
@@ -267,7 +267,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: ed17a211b1f95d544a98886efe6e341e, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1
+      BuildTime: 20
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &225700341252993905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +287,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee12eaadf0200a43a5cae48a8d2b113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretData: {fileID: 11400000, guid: 67bcef86443e7fa478e8b704840ed436, type: 2}
+  TurretData:
+    Data:
+      RotationSharpness: 5
+      AttackRange: 40
+      AttackDelay: 0.3
+      AttackDamage: 15
+      ShipDetectionInterval: 0.3
+      ResourceCost: 1
 --- !u!114 &3441145636540617425
 MonoBehaviour:
   m_ObjectHideFlags: 0

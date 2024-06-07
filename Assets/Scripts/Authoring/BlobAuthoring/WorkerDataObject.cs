@@ -22,12 +22,12 @@ public struct WorkerData
     }
 }
 
-[CreateAssetMenu(fileName = "NewWorkerData", menuName = "Game/WorkerData")]
-public class WorkerDataObject : BakedScriptableObject<WorkerData>
+[System.Serializable]
+public class WorkerDataObject : IBlobAuthoring<WorkerData>
 {
     public WorkerData Data = WorkerData.Default();
     
-    protected override void BakeToBlobData(ref WorkerData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref WorkerData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

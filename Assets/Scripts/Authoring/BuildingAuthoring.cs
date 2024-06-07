@@ -15,6 +15,7 @@ using Random = Unity.Mathematics.Random;
 public class BuildingAuthoring : MonoBehaviour
 {
     public BuildingDataObject BuildingData;
+    
     class Baker : Baker<BuildingAuthoring>
     {
         public override void Bake(BuildingAuthoring authoring)
@@ -22,7 +23,7 @@ public class BuildingAuthoring : MonoBehaviour
             Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new Building
             {
-                BuildingData = authoring.BuildingData.BakeToBlob(this),
+                BuildingData = BlobAuthoringUtility.BakeToBlob(this, authoring.BuildingData),
             });
         }
     }

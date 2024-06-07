@@ -26,8 +26,8 @@
                             <ui:TextField picking-mode="Ignore" label="Time Scale" name="time-scale-field" class="settings-text-field" />
                             <ui:TextField picking-mode="Ignore" label="Team Count" name="team-count-field" class="settings-text-field hide-in-simulation" />
                             <ui:Toggle label="Use NonDeterministic Random Seed" name="use-non-deterministic-random-seed-toggle" class="settings-toggle hide-in-simulation" />
-                            <ui:Toggle label="Use Fixed Simulation Rate" name="use-fixed-simulation-rate-toggle" class="settings-toggle" />
-                            <ui:TextField picking-mode="Ignore" label="Fixed Rate" name="fixed-rate-field" class="settings-text-field" />
+                            <ui:Toggle label="Use Fixed Simulation DeltaTime" name="use-fixed-simulation-deltatime-toggle" class="settings-toggle" />
+                            <ui:TextField picking-mode="Ignore" label="Fixed DeltaTime" name="fixed-deltatime-field" class="settings-text-field" />
                             <ui:TextField picking-mode="Ignore" label="Max total ships" name="max-total-ships-field" class="settings-text-field" />
                             <ui:TextField picking-mode="Ignore" label="Max ships per team" name="max-team-ships-field" class="settings-text-field" />
                             <ui:TextField picking-mode="Ignore" label="Planet Spawn Radius" name="home-planet-spawn-radius-field" class="settings-text-field hide-in-simulation" />

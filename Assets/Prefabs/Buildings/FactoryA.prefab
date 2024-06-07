@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9167263495779630929, guid: e2177824e7a6968468405efea63d4adb,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: -8679921383154817045, guid: e2177824e7a6968468405efea63d4adb,
@@ -100,7 +100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7828260944832927773, guid: e2177824e7a6968468405efea63d4adb,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 8046380310849190397, guid: e2177824e7a6968468405efea63d4adb,
@@ -120,7 +120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8081097353527265680, guid: e2177824e7a6968468405efea63d4adb,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     m_RemovedComponents: []
@@ -248,7 +248,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: 3858f46334deeca409f65fb47f6b1789, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1.5
+      BuildTime: 6
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &138477774137567522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,7 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f1062f271efa142ae2735119182066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FactoryData: {fileID: 11400000, guid: 23d11d5fe34e5454fa90aed05b59a0d8, type: 2}
 --- !u!114 &5390300786999924521
 MonoBehaviour:
   m_ObjectHideFlags: 0

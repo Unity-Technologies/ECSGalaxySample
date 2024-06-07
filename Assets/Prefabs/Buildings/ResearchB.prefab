@@ -75,7 +75,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6600827986002360221, guid: ab36e90db1877d84a9daf3e39eddecd2,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 919132149155446097, guid: ab36e90db1877d84a9daf3e39eddecd2,
@@ -85,12 +85,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1851096298342398136, guid: ab36e90db1877d84a9daf3e39eddecd2,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 2181691175784968031, guid: ab36e90db1877d84a9daf3e39eddecd2,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 5844059713223910382, guid: ab36e90db1877d84a9daf3e39eddecd2,
@@ -305,7 +305,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: 6dd483d89be59d445b632151cc12471a, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1
+      BuildTime: 22
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &3031456468086165090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,7 +325,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ce804599ae69945acb671cbe6b32f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResearchData: {fileID: 11400000, guid: 5ff42996568e8ef42ab1578e9bfa3cc1, type: 2}
+  ResearchData:
+    Data:
+      ResourcesConsumptionRate:
+        x: 0
+        y: 0
+        z: 0
+      ResearchBonuses:
+        ShipSpeedMultiplier: 0
+        ShipAccelerationMultiplier: 0
+        ShipMaxHealthMultiplier: 0.5
+        ShipDamageMultiplier: 0.5
+        FactoryBuildSpeedMultiplier: 0
+        PlanetResourceGenerationRadeAdd:
+          x: 0
+          y: 0
+          z: 0
 --- !u!114 &3128319204870136060
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class ResearchAuthoring : MonoBehaviour
             Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new Research
             {
-                ResearchData = authoring.ResearchData.BakeToBlob(this),
+                ResearchData = BlobAuthoringUtility.BakeToBlob(this, authoring.ResearchData),
             });
         }
     }

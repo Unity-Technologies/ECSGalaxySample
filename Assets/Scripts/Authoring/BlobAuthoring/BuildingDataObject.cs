@@ -26,12 +26,12 @@ public struct BuildingData
     }
 }
 
-[CreateAssetMenu(fileName = "NewBuildingData", menuName = "Game/BuildingData")]
-public class BuildingDataObject : BakedScriptableObject<BuildingData>
+[System.Serializable]
+public class BuildingDataObject : IBlobAuthoring<BuildingData>
 {
     public BuildingData Data = BuildingData.Default();
 
-    protected override void BakeToBlobData(ref BuildingData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref BuildingData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

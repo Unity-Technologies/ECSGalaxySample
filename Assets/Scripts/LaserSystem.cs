@@ -12,11 +12,6 @@ using Unity.Transforms;
 public partial struct LaserSystem : ISystem
 {
     [BurstCompile]
-    public void OnCreate(ref SystemState state)
-    {
-    }
-    
-    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         LaserJob job = new LaserJob
@@ -45,13 +40,13 @@ public partial struct LaserSystem : ISystem
                 float lifetimeRatio = math.saturate(laser.LifetimeCounter / laser.MaxLifetime);
                 float originalScaleZ = postTransformMatrix.Value.Scale().z;
                 postTransformMatrix.Value = float4x4.Scale(lifetimeRatio, lifetimeRatio, originalScaleZ);
-                
+
                 if (laser.LifetimeCounter <= 0f)
                 {
                     ECB.DestroyEntity(_chunkIndex, entity);
                 }
             }
-            
+
             laser.HasExistedOneFrame = 1;
         }
 

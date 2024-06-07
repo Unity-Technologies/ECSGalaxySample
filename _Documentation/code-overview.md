@@ -44,16 +44,14 @@ An alternative way of handling this would have been to make sure that `FighterAu
 
 #### Blob data authoring
 
-Ships and buildings all have some data that is common across all instances and never changes per-instance. In these cases, it can be beneficial to store that data in blob assets, because it reduces the memory footprint of our actors, and reduces the size of our actor archetypes in chunks (leading to improved performance in certain cases). For this, we use the `BakedScriptableObject` utility in the project. This is a simple class that `ScriptableObjects` can inherit from, and it allows them to act as authorings/bakers for blob assets. These `ScriptableObjects` can be dragged and dropped into the inspectors of authoring components, and get converted to blobs during baking.
+Ships and buildings all have some data that is common across all instances and never changes per-instance. In these cases, it can be beneficial to store that data in blob assets, because it reduces the memory footprint of our actors, and reduces the size of our actor archetypes in chunks (leading to improved performance in certain cases). For this, we use the `IBlobAuthoring` interface in the project. This is a simple interface that objects can implement, and it allows them to act as authorings/bakers for blob assets. 
 
 Let's see how this works using the `FighterDataObject` as an example:
-* `FighterDataObject` inherits from `BakedScriptableObject<FighterData>`, where `FighterData` is an unmanaged representation of the data that is common to all fighters and doesn't change per instance.
-* `FighterDataObject` has a `FighterData` serializable field, and overrides `BakeToBlobData` (from `BakedScriptableObject`). `BakeToBlobData` is called when our `BakeToBlobData` is asked to set the blob asset unmanaged data during baking. 
-* `FighterAuthoring` is our authoring behaviour, and it has a field of type `FighterDataObject`
-* During baking, in `FighterAuthoring.Baker`, we call `BakeToBlob` on the authoring's `FighterDataObject`, and assign it as a `BlobAssetReference<FighterData>` in our `Fighter` component.
-* With all this, we have "baked" a scriptable object to a blob asset that is referenced by all `Fighter` components.
-
-All the various "baking" scriptable objects in the game can be found under `Assets/Settings/Game`.
+* `FighterDataObject` is a serializable class that implements `IBlobAuthoring<FighterData>`, where `FighterData` is an unmanaged representation of the data that is common to all fighters and doesn't change per instance.
+* `FighterDataObject` has a `FighterData` serializable field, and implements `BakeToBlobData` (from `IBlobAuthoring`). This is responsible for writing the final data to the blob asset.
+* `FighterAuthoring` is our authoring behaviour, and it has a field of type `FighterDataObject`.
+* During baking, in `FighterAuthoring.Baker`, we call `BlobAuthoringUtility.BakeToBlob` on the authoring's `FighterDataObject`, and assign it as a `BlobAssetReference<FighterData>` in our `Fighter` component.
+* With all this, we have all instances of the same fighter prefab referencing the same `FighterData` blob asset.
 
 -------------------------------------------------------------------------
 
@@ -108,7 +106,7 @@ Most AI calculations happen in `TeamAISystem`. A `TeamAIJob` will make each team
 * `DynamicBuffer<TraderAction>`: contains all the actions that traders can choose from. There is one action per captured planet, and each action stores information about how many resources this planet has compared to the other captured planets for this team.
 * `DynamicBuffer<FactoryAction>`: contains all the actions that factories can choose from. These is one action per ship type (because these actions represent "which ship should factories build"), and each ship type is given an importance score that depends on what type of ship this team lacks the most at the moment (among other factors).
 
-Once `TeamAIJob` has finished computing all these possible actions and their importances for the team, individual actors such as ships and factories will choose from these actions, with some personal bias involved. For example, when a fighter ship chooses an action in `FighterAIJob`, it applies a "proximity bias" to the importance score of each action. This means that the fighter ship will tend to favor planets that are nearby even if they're not the best-scoring planets. Once the fighter has a final score with personal bias for each action, it will select one action with a weighted random. However, note that the random used here is always obtained via `GameUtilities.GetDeterministicRandom(entity.Index)`. This gives us a random that is unique to this entity, but does not change from frame to frame. This provides stability to AI decisions, and prevents ships from picking a different action every frame.
+Once `TeamAIJob` has finished computing all these possible actions and their importances for the team, individual actors such as ships and factories will choose from these actions, with some personal bias involved. For example, when a fighter ship chooses an action in `FighterAIJob`, it applies a "proximity bias" to the importance score of each action. This means that the fighter ship will tend to favor planets that are nearby even if they're not the best-scoring planets. Once the fighter has a final score with personal bias for each action, it will select one action with a weighted random. 
 
 See Debug Views for visualizations:
 * [Fighter Actions](./debug-views.md#fighter-actions)
@@ -182,4 +180,9 @@ All VFX in this game is handled by `VFXSystem` and VFXGraphs. At the scale requi
 * `ShipDeathJob` creates requests for explosion effects.
 * `ShipInitializeJob` creates requests to spawn a thruster VFX for this ship, and `ShipSetVFXDataJob` updates the data that this VFX uses in its update (parent transform data)
 
-At the end of the frame, `VFXSystem` updates all `VFXManager`s, who in turn are responsible for uploading their vfx requests to their respective VFXGraphs via graphics buffers. The rest of the work is done by VFX Graphs, who sample the graphics buffers and spawn particles based on the data in these.
+At the end of the frame, `VFXSystem` updates all `VFXManager`s, who in turn are responsible for uploading their vfx requests to their respective VFXGraphs via graphics buffers:
+* Whenever there are VFX events, `VFXSystem` will update the VFXGraph's graphics buffer with the event datas, set a "SpawnRequestsCount" property in the graph, and send a "SpawnBatch" event to the graph.
+* The VFXGraph will spawn "SpawnRequestsCount" amount of new particles whenever it receives a "SpawnBatch" event.
+* For each particle, in the VFXGraph's "Initialize Particle" module, the VFXGraph will use the "Sample Graphics Buffer" node to get the VFXEvent data at the particle's "SpawnIndex" (the particle sequence number in particles we just spawned with the "SpawnBatch" event). It will then use that data to set some particle properties like position and scale.
+* In the VFXGraph's "Update Particle" module, we instantly kill the particle using "Set Alive" set to false, and we add GPU events to spawn additional particles on die. In other words; the particle will spawn additional particles on the first frame of its existence and will be destroyed.
+* Additional spawned particles then have their own VFX modules (initialize, update, etc...). In "Initialize Particle", they will inherit some particle data from the parent particle that spawned them. They will then use that data as a starting point to control their behavior.

@@ -15,7 +15,7 @@ namespace Galaxy
                 Entity entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Trader
                 {
-                    TraderData = authoring.TraderData.BakeToBlob(this),
+                    TraderData = BlobAuthoringUtility.BakeToBlob(this, authoring.TraderData),
                     FindTradeRouteAttempts = 0,
                 });
                 AddComponent(entity, new ExecuteTrade());

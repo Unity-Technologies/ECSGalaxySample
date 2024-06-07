@@ -9,18 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9001ab9367e6db54899231de99a8fbd8, type: 3}
-  m_Name: TurretA_Building
+  m_Script: {fileID: 11500000, guid: f04302f88b9bc2944add4fc82333aad9, type: 3}
+  m_Name: TurretData
   m_EditorClassIdentifier: 
-  Name: TurretA
   Data:
-    Value: 1
-    BuildProbability: 1
-    ResourcesCost:
-      x: 1
-      y: 1
-      z: 1
-    BuildTime: 10
-    ExplosionScaleRange:
-      x: 4
-      y: 5
+    RotationSharpness: 10
+    AttackRange: 60
+    AttackDelay: 0.1
+    AttackDamage: 10.5
+    ShipDetectionInterval: 0.1
+    ResourceCost: 1.5

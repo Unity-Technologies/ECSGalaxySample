@@ -20,12 +20,12 @@ public struct TraderData
     }
 }
 
-[CreateAssetMenu(fileName = "NewTraderData", menuName = "Game/TraderIData")]
-public class TraderDataObject : BakedScriptableObject<TraderData>
+[System.Serializable]
+public class TraderDataObject : IBlobAuthoring<TraderData>
 {
     public TraderData Data = TraderData.Default();
     
-    protected override void BakeToBlobData(ref TraderData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref TraderData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

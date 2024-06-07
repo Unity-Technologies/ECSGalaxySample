@@ -26,12 +26,12 @@ public struct TurretData
     }
 }
 
-[CreateAssetMenu(fileName = "NewTurretData", menuName = "Game/TurretData")]
-public class TurretDataObject : BakedScriptableObject<TurretData>
+[System.Serializable]
+public class TurretDataObject : IBlobAuthoring<TurretData>
 {
     public TurretData Data = TurretData.Default();
 
-    protected override void BakeToBlobData(ref TurretData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref TurretData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

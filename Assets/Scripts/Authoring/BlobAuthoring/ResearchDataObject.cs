@@ -21,12 +21,12 @@ public struct ResearchData
     }
 }
 
-[CreateAssetMenu(fileName = "NewResearchData", menuName = "Game/ResearchData")]
-public class ResearchDataObject : BakedScriptableObject<ResearchData>
+[System.Serializable]
+public class ResearchDataObject : IBlobAuthoring<ResearchData>
 {
     public ResearchData Data = ResearchData.Default();
 
-    protected override void BakeToBlobData(ref ResearchData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref ResearchData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

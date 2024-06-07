@@ -95,7 +95,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3985045323332664668, guid: d56b31158f09ce94d80313a3cd559eb8,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     - target: {fileID: -3011978311642926731, guid: d56b31158f09ce94d80313a3cd559eb8,
@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3011978311642926731, guid: d56b31158f09ce94d80313a3cd559eb8,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     - target: {fileID: 165019058866097394, guid: d56b31158f09ce94d80313a3cd559eb8,
@@ -135,7 +135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8867010149460787649, guid: d56b31158f09ce94d80313a3cd559eb8,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4600a2362a2c6a4479ca85c41d7acbbc, type: 2}
     m_RemovedComponents: []
@@ -227,6 +227,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -316,7 +319,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 444b31b693a25c64fa0d2b1a00bbbd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShipData: {fileID: 11400000, guid: b6339ab4556f634418b06aad1b820749, type: 2}
+  ShipData:
+    Data:
+      MaxSpeed: 20
+      Acceleration: 25
+      SteeringSharpness: 7
+      ShouldAvoidTargetPlanet: 1
+      PlanetOrbitOffset: 1
+      PlanetAvoidanceDistance: 30
+      PlanetAvoidanceRelativeOffset: 3
+      MaxDistanceSqForPlanetProximityImportanceScaling: 10000
+      PlanetProximityImportanceRemap:
+        x: 0.1
+        y: 1
+      Value: 300
+      BuildProbabilityForShipType: 250
+      ResourcesCost:
+        x: 18
+        y: 22
+        z: 8
+      BuildTime: 0.4
+      ExplosionScaleRange:
+        x: 4
+        y: 6
+      ThrusterLocalPosition:
+        x: 0
+        y: 0
+        z: -1.513
+      ThrusterSize: 0.45
+      ThrusterLength: 3.33
 --- !u!114 &6419820292979771409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +360,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c9b7d66e024e8ea17a263c0ad3fd16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FighterData: {fileID: 11400000, guid: bbc3ad460f3e57b49bf79ed085ac5fda, type: 2}
+  FighterData:
+    Data:
+      DetectionRange: 10
+      AttackRange: 75
+      AttackDelay: 0.25
+      AttackDamage: 15
+      DotProdThresholdForTargetInSights: 0.2
+      ShipDetectionInterval: 0.5
 --- !u!114 &5443012601947693060
 MonoBehaviour:
   m_ObjectHideFlags: 0

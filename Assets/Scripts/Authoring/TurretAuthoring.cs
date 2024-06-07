@@ -16,7 +16,7 @@ public class TurretAuthoring : MonoBehaviour
             Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new Turret
             {
-                TurretData = authoring.TurretData.BakeToBlob(this),
+                TurretData = BlobAuthoringUtility.BakeToBlob(this, authoring.TurretData),
             });
         }
     }

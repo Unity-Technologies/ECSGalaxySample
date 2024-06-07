@@ -15,7 +15,7 @@ namespace Galaxy
                 Entity entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Fighter
                 {
-                    FighterData = authoring.FighterData.BakeToBlob(this),
+                    FighterData = BlobAuthoringUtility.BakeToBlob(this, authoring.FighterData),
                     
                     DamageMultiplier = 1f,
                 });

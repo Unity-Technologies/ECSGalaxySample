@@ -57,12 +57,12 @@ public struct ShipData
     }
 }
 
-[CreateAssetMenu(fileName = "NewShipData", menuName = "Game/ShipData")]
-public class ShipDataObject : BakedScriptableObject<ShipData>
+[System.Serializable]
+public class ShipDataObject : IBlobAuthoring<ShipData>
 {
     public ShipData Data = ShipData.Default();
 
-    protected override void BakeToBlobData(ref ShipData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref ShipData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

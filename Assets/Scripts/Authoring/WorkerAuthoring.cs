@@ -16,7 +16,7 @@ namespace Galaxy
                 Entity entity = GetEntity(TransformUsageFlags.Dynamic);
                 AddComponent(entity, new Worker
                 {
-                    WorkerData = authoring.WorkerData.BakeToBlob(this),
+                    WorkerData = BlobAuthoringUtility.BakeToBlob(this, authoring.WorkerData),
                 });
                 AddComponent(entity, new ExecutePlanetCapture());
                 SetComponentEnabled<ExecutePlanetCapture>(entity, false);

@@ -3,6 +3,7 @@ using Unity.Entities;
 using Unity.Logging;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Galaxy
 {
@@ -25,8 +26,8 @@ namespace Galaxy
         public bool AutoInitializeGame = true;
         public bool UseNonDeterministicRandomSeed = false;
         public uint GameInitializationRandomSeed = 12345;
-        public bool UseFixedSimulationRate = true;
-        public int FixedRate = 30;
+        public bool UseFixedSimulationDeltaTime = true;
+        public float FixedDeltaTime = 0.0333333f;
         public float StartCameraDistanceRatio = 1.4f;
         public int MaxTotalShips;
         public int MaxShipsPerTeam;
@@ -121,8 +122,8 @@ namespace Galaxy
                 });
                 AddComponent(entity, new SimulationRate
                 {
-                    UseFixedRate = authoring.UseFixedSimulationRate,
-                    FixedTimeStep = 1f / authoring.FixedRate,
+                    UseFixedRate = authoring.UseFixedSimulationDeltaTime,
+                    FixedTimeStep = authoring.FixedDeltaTime,
                     TimeScale = 1f,
                     Update = true,
                 });
@@ -133,7 +134,7 @@ namespace Galaxy
                     shipsCollectionBuffer.Add(new ShipCollection
                     {
                         PrefabEntity = GetEntity(authoring.ShipsCollection[i], TransformUsageFlags.None),
-                        ShipData = authoring.ShipsCollection[i].GetComponent<ShipAuthoring>().ShipData.BakeToBlob(this),
+                        ShipData = BlobAuthoringUtility.BakeToBlob(this, authoring.ShipsCollection[i].GetComponent<ShipAuthoring>().ShipData),
                     });
                 }
                 
@@ -143,7 +144,7 @@ namespace Galaxy
                     buildingsCollectionBuffer.Add(new BuildingCollection()
                     {
                         PrefabEntity = GetEntity(authoring.BuildingsCollection[i], TransformUsageFlags.None),
-                        BuildingData = authoring.BuildingsCollection[i].GetComponent<BuildingAuthoring>().BuildingData.BakeToBlob(this),
+                        BuildingData = BlobAuthoringUtility.BakeToBlob(this, authoring.BuildingsCollection[i].GetComponent<BuildingAuthoring>().BuildingData),
                     });
                 }
 

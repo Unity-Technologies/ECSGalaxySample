@@ -4,23 +4,29 @@ using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
-public abstract class BakedScriptableObject<T> : ScriptableObject where T : unmanaged
+public interface IBlobAuthoring<T> where T : unmanaged
 {
-    public BlobAssetReference<T> BakeToBlob(IBaker baker)
+    public void BakeToBlobData(ref T data, ref BlobBuilder blobBuilder);
+}
+
+public static class BlobAuthoringUtility
+{
+    public static BlobAssetReference<T> BakeToBlob<T>(IBaker baker, IBlobAuthoring<T> blobAuthoring, UnityEngine.Object dependsOn = null) where T : unmanaged
     {
         BlobBuilder builder = new BlobBuilder(Allocator.Temp);
         ref T definition = ref builder.ConstructRoot<T>();
     
-        BakeToBlobData(ref definition, ref builder);
+        blobAuthoring.BakeToBlobData(ref definition, ref builder);
         
         BlobAssetReference<T> blobReference = builder.CreateBlobAssetReference<T>(Allocator.Persistent);
         baker.AddBlobAsset(ref blobReference, out var hash);
         builder.Dispose();
 
-        baker.DependsOn(this);
-        
+        if (dependsOn != null)
+        {
+            baker.DependsOn(dependsOn);
+        }
+
         return blobReference;
     }
-    
-   protected abstract void BakeToBlobData(ref T data, ref BlobBuilder blobBuilder);
 }

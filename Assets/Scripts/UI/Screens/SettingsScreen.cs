@@ -68,8 +68,8 @@ namespace Galaxy
             m_TimeScaleField = m_RootElement.Q<TextField>("time-scale-field");
             m_TeamCountField = m_RootElement.Q<TextField>("team-count-field");
             m_UseNonDeterministicRandomSeedToggle = m_RootElement.Q<Toggle>("use-non-deterministic-random-seed-toggle");
-            m_UseFixedSimulationRateToggle = m_RootElement.Q<Toggle>("use-fixed-simulation-rate-toggle");
-            m_FixedRateField = m_RootElement.Q<TextField>("fixed-rate-field");
+            m_UseFixedSimulationRateToggle = m_RootElement.Q<Toggle>("use-fixed-simulation-deltatime-toggle");
+            m_FixedRateField = m_RootElement.Q<TextField>("fixed-deltatime-field");
             m_MaxTotalShipsField = m_RootElement.Q<TextField>("max-total-ships-field");
             m_MaxTeamShipsField = m_RootElement.Q<TextField>("max-team-ships-field");
             m_HomePlanetSpawnRadiusField = m_RootElement.Q<TextField>("home-planet-spawn-radius-field");
@@ -124,7 +124,7 @@ namespace Galaxy
                 m_TeamCountField.SetValueWithoutNotify(teamBuffer.Length.ToString());
                 m_UseNonDeterministicRandomSeedToggle.SetValueWithoutNotify(config.UseNonDeterministicRandomSeed);
                 m_UseFixedSimulationRateToggle.SetValueWithoutNotify(simulationRate.UseFixedRate);
-                m_FixedRateField.SetValueWithoutNotify(((int)math.round(1f / simulationRate.FixedTimeStep)).ToString());
+                m_FixedRateField.SetValueWithoutNotify(simulationRate.FixedTimeStep.ToString());
                 m_MaxTotalShipsField.SetValueWithoutNotify(config.MaxTotalShips.ToString());
                 m_MaxTeamShipsField.SetValueWithoutNotify(config.MaxShipsPerTeam.ToString());
                 m_HomePlanetSpawnRadiusField.SetValueWithoutNotify(config.HomePlanetSpawnRadius.ToString());
@@ -233,7 +233,7 @@ namespace Galaxy
 
                 // Simulation rate
                 GameUtilities.SetUseFixedRate(worldUnmanaged, m_UseFixedSimulationRateToggle.value);
-                GameUtilities.SetFixedTimeStep(worldUnmanaged, 1f / int.Parse(m_FixedRateField.value));
+                GameUtilities.SetFixedTimeStep(worldUnmanaged, float.Parse(m_FixedRateField.value));
                 GameUtilities.SetTimeScale(worldUnmanaged, float.Parse(m_TimeScaleField.value));
 
                 // Teams

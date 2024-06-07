@@ -60,7 +60,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1832484966171158068, guid: d6faeabfaaa4bbd48981cc9905c4766d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: -972627603865015830, guid: d6faeabfaaa4bbd48981cc9905c4766d,
@@ -85,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1926574575193049418, guid: d6faeabfaaa4bbd48981cc9905c4766d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 4010344586572811777, guid: d6faeabfaaa4bbd48981cc9905c4766d,
@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4072783707592983074, guid: d6faeabfaaa4bbd48981cc9905c4766d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 7969212440458104335, guid: d6faeabfaaa4bbd48981cc9905c4766d,
@@ -292,7 +292,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: 447a76115304cdf4f9a40545088e7ba1, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1
+      BuildTime: 18
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &6521392851587801617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,7 +312,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ce804599ae69945acb671cbe6b32f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResearchData: {fileID: 11400000, guid: 01079a2ca939e64469a3266f9ca410ce, type: 2}
+  ResearchData:
+    Data:
+      ResourcesConsumptionRate:
+        x: 0
+        y: 0
+        z: 0
+      ResearchBonuses:
+        ShipSpeedMultiplier: 0.5
+        ShipAccelerationMultiplier: 0.5
+        ShipMaxHealthMultiplier: 0
+        ShipDamageMultiplier: 0
+        FactoryBuildSpeedMultiplier: 0
+        PlanetResourceGenerationRadeAdd:
+          x: 0
+          y: 0
+          z: 0
 --- !u!114 &4225066678389598408
 MonoBehaviour:
   m_ObjectHideFlags: 0

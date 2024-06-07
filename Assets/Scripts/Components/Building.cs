@@ -17,8 +17,6 @@ public struct Building : IComponentData
 
 public struct Factory : IComponentData
 {
-    public BlobAssetReference<FactoryData> FactoryData;
-    
     public Entity CurrentProducedPrefab;
     public float ProductionTimer;
     public ResearchBonuses ProductionResearchBonuses;

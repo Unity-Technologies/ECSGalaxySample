@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -189658732445503851, guid: 24051b6fbe11f9a428b59e631bf19e8d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 919132149155446097, guid: 24051b6fbe11f9a428b59e631bf19e8d,
@@ -100,12 +100,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5476581658814323560, guid: 24051b6fbe11f9a428b59e631bf19e8d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 5968590534494930127, guid: 24051b6fbe11f9a428b59e631bf19e8d,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 8929106076893219417, guid: 24051b6fbe11f9a428b59e631bf19e8d,
@@ -242,7 +242,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: afae870ebba7c854094065345243c984, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1
+      BuildTime: 10
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &4509080372805174056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +262,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ee12eaadf0200a43a5cae48a8d2b113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretData: {fileID: 11400000, guid: c4c7780a30d864c489ab8014fba947cd, type: 2}
+  TurretData:
+    Data:
+      RotationSharpness: 5
+      AttackRange: 25
+      AttackDelay: 0.5
+      AttackDamage: 8
+      ShipDetectionInterval: 0.5
+      ResourceCost: 1
 --- !u!114 &3452581651895383850
 MonoBehaviour:
   m_ObjectHideFlags: 0

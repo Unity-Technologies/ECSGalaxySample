@@ -88,8 +88,8 @@ MonoBehaviour:
   AutoInitializeGame: 0
   UseNonDeterministicRandomSeed: 0
   GameInitializationRandomSeed: 12345
-  UseFixedSimulationRate: 0
-  FixedRate: 30
+  UseFixedSimulationDeltaTime: 0
+  FixedDeltaTime: 0.0333333
   StartCameraDistanceRatio: 1.4
   MaxTotalShips: 200000
   MaxShipsPerTeam: 200000

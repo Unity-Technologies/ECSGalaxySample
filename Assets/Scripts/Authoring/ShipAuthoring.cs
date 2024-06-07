@@ -22,7 +22,7 @@ public class ShipAuthoring : MonoBehaviour
             Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new Ship
             {
-                ShipData = authoring.ShipData.BakeToBlob(this),
+                ShipData = BlobAuthoringUtility.BakeToBlob(this, authoring.ShipData),
                 
                 AccelerationMultiplier = 1f,
                 MaxSpeedMultiplier = 1f,

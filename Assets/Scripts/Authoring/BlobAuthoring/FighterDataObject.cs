@@ -26,12 +26,12 @@ public struct FighterData
     }
 }
 
-[CreateAssetMenu(fileName = "NewFighterData", menuName = "Game/FighterData")]
-public class FighterDataObject : BakedScriptableObject<FighterData>
+[System.Serializable]
+public class FighterDataObject : IBlobAuthoring<FighterData>
 {
     public FighterData Data = FighterData.Default();
     
-    protected override void BakeToBlobData(ref FighterData data, ref BlobBuilder blobBuilder)
+    public void BakeToBlobData(ref FighterData data, ref BlobBuilder blobBuilder)
     {
         data = Data;
     }

@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3205890362222852972, guid: bcb559eb3807e3b42adba6ee784edd98,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: -1278714761445463178, guid: bcb559eb3807e3b42adba6ee784edd98,
@@ -115,12 +115,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2088364713679927395, guid: bcb559eb3807e3b42adba6ee784edd98,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     - target: {fileID: 2101321658594429094, guid: bcb559eb3807e3b42adba6ee784edd98,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 98c9e8675d79d6e4aaa97fa96cbce201, type: 2}
     m_RemovedComponents: []
@@ -261,7 +261,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf939fabe4273b1408299f8e5f8dac17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingData: {fileID: 11400000, guid: 7c11f6a825ad80647816ab39bae8e987, type: 2}
+  BuildingData:
+    Data:
+      Value: 1
+      BuildProbability: 1
+      BuildTime: 35
+      ExplosionScaleRange:
+        x: 4
+        y: 5
 --- !u!114 &6872850552112261050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +281,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5ce804599ae69945acb671cbe6b32f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResearchData: {fileID: 11400000, guid: d9e65cab4929ca14bb9a077d43330683, type: 2}
+  ResearchData:
+    Data:
+      ResourcesConsumptionRate:
+        x: 0
+        y: 0
+        z: 0
+      ResearchBonuses:
+        ShipSpeedMultiplier: 0
+        ShipAccelerationMultiplier: 0
+        ShipMaxHealthMultiplier: 0
+        ShipDamageMultiplier: 0
+        FactoryBuildSpeedMultiplier: 0.2
+        PlanetResourceGenerationRadeAdd:
+          x: 30
+          y: 12
+          z: 4
 --- !u!114 &2102263076796586872
 MonoBehaviour:
   m_ObjectHideFlags: 0

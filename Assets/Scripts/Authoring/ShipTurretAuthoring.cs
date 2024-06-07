@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ShipTurretAuthoring : MonoBehaviour
 {
-    public TurretDataObject TurretData;
+    public TurretDataScriptableObject TurretData;
     
     class Baker : Baker<ShipTurretAuthoring>
     {
@@ -15,7 +15,7 @@ public class ShipTurretAuthoring : MonoBehaviour
             Entity entity = GetEntity(authoring, TransformUsageFlags.Dynamic);
             AddComponent(entity, new Turret
             {
-                TurretData = authoring.TurretData.BakeToBlob(this),
+                TurretData = authoring.TurretData == null ? default : BlobAuthoringUtility.BakeToBlob(this, authoring.TurretData, authoring.TurretData),
             });
             AddComponent(entity, new Team
             {
