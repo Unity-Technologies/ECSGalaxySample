@@ -54,7 +54,6 @@ namespace Galaxy
         
         [Header("Acceleration Structures")] 
         public bool BuildSpatialDatabaseParallel = true;
-        public int ParallelSpatialDatabaseBuildJobsCount = 8;
         public float SimulationBoundsPadding;
         public int SpatialDatabaseSubdivisions = 5;
         public int PlanetNavigationGridSubdivisions = 4;
@@ -106,7 +105,6 @@ namespace Galaxy
                     MoonSizeRange = authoring.MoonSizeRange,
                     
                     BuildSpatialDatabaseParallel = authoring.BuildSpatialDatabaseParallel,
-                    ParallelSpatialDatabaseBuildJobsCount = authoring.ParallelSpatialDatabaseBuildJobsCount,
                     SimulationBoundsPadding = authoring.SimulationBoundsPadding,
                     SpatialDatabaseSubdivisions = authoring.SpatialDatabaseSubdivisions,
                     PlanetNavigationGridSubdivisions = authoring.PlanetNavigationGridSubdivisions,

@@ -2,6 +2,8 @@ using Unity.Burst;
 using Unity.Burst.Intrinsics;
 using Unity.Entities;
 using Unity.Jobs;
+using Unity.Jobs.LowLevel.Unsafe;
+using Unity.Mathematics;
 using Unity.Transforms;
 
 [BurstCompile]
@@ -45,12 +47,13 @@ public partial struct BuildSpatialDatabasesSystem : ISystem
             
             // Launch X jobs, each responsible for 1/Xth of spatial database cells
             JobHandle initialDep = state.Dependency;
-            for (int s = 0; s < config.ParallelSpatialDatabaseBuildJobsCount; s++)
+            int parallelCount = math.max(1, JobsUtility.JobWorkerCount - 1);
+            for (int s = 0; s < parallelCount; s++)
             {
                 BuildSpatialDatabaseParallelJob buildJob = new BuildSpatialDatabaseParallelJob
                 {
                     JobSequenceNb = s,
-                    JobsTotalCount = config.ParallelSpatialDatabaseBuildJobsCount,
+                    JobsTotalCount = parallelCount,
                     CachedSpatialDatabase = cachedSpatialDatabase,
                 };
                 state.Dependency = JobHandle.CombineDependencies(state.Dependency, buildJob.Schedule(initialDep));

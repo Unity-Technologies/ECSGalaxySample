@@ -1031,7 +1031,7 @@ public partial struct ShipPostTransformsSystem : ISystem
         {
             if (ship.ThrusterVFXIndex >= 0)
             {
-                ShipData shipData = ship.ShipData.Value;
+                ref ShipData shipData = ref ship.ShipData.Value;
                     
                 VFXThrusterData thrusterData = ThrustersData[ship.ThrusterVFXIndex];
                 thrusterData.Position =

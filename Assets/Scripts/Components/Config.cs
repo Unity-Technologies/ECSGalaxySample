@@ -38,7 +38,6 @@ public struct Config : IComponentData
     public float2 MoonSizeRange;
 
     public bool BuildSpatialDatabaseParallel;
-    public int ParallelSpatialDatabaseBuildJobsCount;
     public float SimulationBoundsPadding;
     public int SpatialDatabaseSubdivisions;
     public int PlanetNavigationGridSubdivisions;

@@ -10,6 +10,7 @@
 * [Entity Initialization and Death](./code-overview.md#entity-initialization-and-death)
 * [Acceleration Structures](./code-overview.md#acceleration-structures)
 * [VFX](./code-overview.md#vfx)
+* [LODs](./code-overview.md#lods)
 
 -------------------------------------------------------------------------
 
@@ -186,3 +187,14 @@ At the end of the frame, `VFXSystem` updates all `VFXManager`s, who in turn are 
 * For each particle, in the VFXGraph's "Initialize Particle" module, the VFXGraph will use the "Sample Graphics Buffer" node to get the VFXEvent data at the particle's "SpawnIndex" (the particle sequence number in particles we just spawned with the "SpawnBatch" event). It will then use that data to set some particle properties like position and scale.
 * In the VFXGraph's "Update Particle" module, we instantly kill the particle using "Set Alive" set to false, and we add GPU events to spawn additional particles on die. In other words; the particle will spawn additional particles on the first frame of its existence and will be destroyed.
 * Additional spawned particles then have their own VFX modules (initialize, update, etc...). In "Initialize Particle", they will inherit some particle data from the parent particle that spawned them. They will then use that data as a starting point to control their behavior.
+
+
+-------------------------------------------------------------------------
+
+## LODs
+
+Each ship and building prefab has LODs set up via the `LODGroup` component. The `MeshRenderer`s used for the `LODGroup` are on child GameObjects, since we can only have one `MeshRenderer` per GameObject. At runtime, when instantiating these prefabs, these child GameObjects hosting LOD meshes become child entities.
+
+Transform hierarchy updates are relatively expensive, and for this project we'd like to avoid having every ship be a transform hierarchy to update. In order to solve this, we created a simple system that unparents these LOD mesh entities during baking, and makes them copy the transform of their root entity every frame at runtime. We add a `CopyRootLocalTransformAsLtWAuthoring` component to all ship child GameObjects that host mesh LODs and don't have any child GameObjects themselves. This marks these with the `TransformUsageFlags.ManualOverride` flag during baking, which means we are now in control of transform components for these entities. Instead of making these entities children of the root ship entitiy, we make them just be root entities, and we add a `CopyEntityLocalTransformAsLtW` to them. The `CopyEntityLocalTransformAsLtW` component stores the root entity whose `LocalTransform` component should be copied into the `LocalToWorld` of this entitiy by the `CopyEntityLocalTransformAsLtWSystem` every frame.
+
+With this setup, we avoid expensive transform hierarchy calculations and archetype size inflation for most ships. Instead, we have a much faster `CopyEntityLocalTransformAsLtWJob` that simply copies ship entity `LocalTransform` matrices to ship LOD entity `LocalToWorld`s via lookups. Our tests have shown that this approach to handling simple LOD entity transforms takes roughly 1/5th of the time taken by the default transform hierarchy approach.

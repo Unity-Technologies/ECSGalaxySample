@@ -191,10 +191,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 446702919246344785}
+    - targetCorrespondingSourceObject: {fileID: -2652770478054858835, guid: b496f7977e4862b49bd4ee85aadde0b2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5329890333485695714}
     - targetCorrespondingSourceObject: {fileID: -2817110993854468684, guid: b496f7977e4862b49bd4ee85aadde0b2,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3118186931036406547}
+    - targetCorrespondingSourceObject: {fileID: -2817110993854468684, guid: b496f7977e4862b49bd4ee85aadde0b2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5274724300976059924}
   m_SourcePrefab: {fileID: 100100000, guid: b496f7977e4862b49bd4ee85aadde0b2, type: 3}
 --- !u!1 &3212124066913415508 stripped
 GameObject:
@@ -215,6 +223,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &5329890333485695714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3212124066913415508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579c30a8885009a4e851ee7e850763ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3412368309193671501 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2817110993854468684, guid: b496f7977e4862b49bd4ee85aadde0b2,
@@ -234,6 +254,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &5274724300976059924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3412368309193671501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579c30a8885009a4e851ee7e850763ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &4338704377994312287 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -3780039358259227482, guid: b496f7977e4862b49bd4ee85aadde0b2,
