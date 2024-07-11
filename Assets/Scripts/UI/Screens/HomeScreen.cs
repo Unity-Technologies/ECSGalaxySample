@@ -18,10 +18,16 @@ namespace Galaxy
 
         public HomeScreen(VisualElement parentElement) : base(parentElement)
         {
+            SubscribeToEvents();
             SetVisualElements();
             RegisterCallbacks();
             // Initialize the simulation state
             m_SimulationStarted = false;
+        }
+
+        private void SubscribeToEvents()
+        {
+            UIEvents.SimulateGame += SimulateGame;
         }
 
         private void SetVisualElements()
@@ -80,6 +86,11 @@ namespace Galaxy
         }
 
         private void OnSimulateButtonClicked(ClickEvent obj)
+        {
+            SimulateGame();
+        }
+
+        private void SimulateGame()
         {
             UIEvents.OnRequestSimulationStart?.Invoke();
             UIEvents.HUDScreenShown?.Invoke();

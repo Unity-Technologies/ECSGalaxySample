@@ -10,6 +10,7 @@ public static class UIEvents
     public static Action OnRequestSimulationStart;
     public static Action DisableUI;
     public static Action TogglePause;
+    public static Action SimulateGame;
     public static Action<bool> IgnoreCameraInput;
     
     // Planet Stats

@@ -206,10 +206,9 @@ public partial struct BuildingSystem : ISystem
         [ReadOnly]
         public ComponentLookup<Parent> ParentLookup;
         
-        private void Execute(Entity entity, ref Turret turret, ref LocalTransform localTransform, in Team team)
+        private void Execute(Entity entity, ref Turret turret, ref LocalTransform localTransform, in Team team, in LocalToWorld turretLTW)
         {
             TurretData turretData = turret.TurretData.Value;
-            LocalToWorld turretLTW = LocalToWorldLookup[entity];
             
             // Check if target still exists
             if (turret.ActiveTarget != Entity.Null)
@@ -443,7 +442,7 @@ public partial struct BuildingSystem : ISystem
                     if (HealthLookup.TryGetComponent(factory.CurrentProducedPrefab, out Health producedHealth))
                     {
                         producedHealth.MaxHealth *= factory.ProductionResearchBonuses.ShipMaxHealthMultiplier;
-                        producedHealth.CurrentHealth *= producedHealth.MaxHealth;
+                        producedHealth.CurrentHealth = producedHealth.MaxHealth;
                         ECB.SetComponent(producedEntity, producedHealth);
                     }
 
