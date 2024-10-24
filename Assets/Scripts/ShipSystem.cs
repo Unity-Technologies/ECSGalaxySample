@@ -6,7 +6,6 @@ using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Jobs;
 using Unity.Transforms;
-using Unity.Logging;
 using Unity.Mathematics;
 using Unity.Rendering;
 using UnityEngine;
