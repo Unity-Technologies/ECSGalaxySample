@@ -1,10 +1,11 @@
 using System.Runtime.CompilerServices;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Logging;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
+using UnityEngine;
+using Random = Unity.Mathematics.Random;
 
 public struct IdentifiedImportance
 {
@@ -79,7 +80,7 @@ public static class GameUtilities
     {
         if (team > byte.MaxValue)
         {
-            Log.Error("Error: surpassed max teams count");
+            Debug.Log("Error: surpassed max teams count");
         }
         
         entityManager.SetComponentData(entity, new Team { Index = team });
@@ -91,7 +92,7 @@ public static class GameUtilities
     {
         if (team > byte.MaxValue)
         {
-            Log.Error("Error: surpassed max teams count");
+            Debug.Log("Error: surpassed max teams count");
         }
 
         ecb.SetComponent(entity, new Team { Index = team });
@@ -103,7 +104,7 @@ public static class GameUtilities
     {
         if (team > byte.MaxValue)
         {
-            Log.Error("Error: surpassed max teams count");
+            Debug.Log("Error: surpassed max teams count");
         }
 
         ecb.SetComponent(sortKey, entity, new Team { Index = team });
