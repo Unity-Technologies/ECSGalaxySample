@@ -8,8 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: a790d7a97da3477429d036c5011b4b66
-  - enabled: 1
-    path: Assets/_DEV/Scenes/PerformanceTest.unity
-    guid: 081d414e72412d7438ce148834228891
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
