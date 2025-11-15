@@ -217,6 +217,7 @@ public partial struct TeamAISystem : ISystem
     [BurstCompile]
     public struct TeamAIJob : IJobParallelFor
     {
+        private static readonly int kFighterActionGenerateCount = 7;
         public Entity ShipsCollectionEntity;
         public Entity BuildingsCollectionEntity;
 
@@ -841,13 +842,16 @@ public partial struct TeamAISystem : ISystem
 
             if (fighterAIAction.HasConsiderationsAndImportance())
             {
-                GameUtilities.AddAction(ref fighterActions, ref fighterAIProcessor, new FighterAction
+                for (int i = 0; i < kFighterActionGenerateCount; ++i)
                 {
-                    Entity = planetIntel.Entity,
-                    Position = planetIntel.Position,
-                    Radius = planetIntel.PlanetRadius,
-                    IsOwned = planetIntel.IsOwned,
-                }, fighterAIAction);
+                    GameUtilities.AddAction(ref fighterActions, ref fighterAIProcessor, new FighterAction
+                    {
+                        Entity = planetIntel.Entity,
+                        Position = planetIntel.Position,
+                        Radius = planetIntel.PlanetRadius,
+                        IsOwned = planetIntel.IsOwned,
+                    }, fighterAIAction);
+                }
             }
         }
 
@@ -945,13 +949,16 @@ public partial struct TeamAISystem : ISystem
 
             if (fighterAIAction.HasConsiderationsAndImportance())
             {
-                GameUtilities.AddAction(ref fighterActions, ref fighterAIProcessor, new FighterAction
+                for (int i = 0; i < kFighterActionGenerateCount; ++i)
                 {
-                    Entity = planetIntel.Entity,
-                    Position = planetIntel.Position,
-                    Radius = planetIntel.PlanetRadius,
-                    IsOwned = planetIntel.IsOwned,
-                }, fighterAIAction);
+                    GameUtilities.AddAction(ref fighterActions, ref fighterAIProcessor, new FighterAction
+                    {
+                        Entity = planetIntel.Entity,
+                        Position = planetIntel.Position,
+                        Radius = planetIntel.PlanetRadius,
+                        IsOwned = planetIntel.IsOwned,
+                    }, fighterAIAction);
+                }
             }
         }
         
