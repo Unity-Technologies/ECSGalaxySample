@@ -102,6 +102,25 @@ public partial struct TeamAISystem : ISystem
             NativeArray<Planet> planets = planetsQuery.ToComponentDataArray<Planet>(state.WorldUpdateAllocator);
             NativeArray<Team> planetTeams = planetsQuery.ToComponentDataArray<Team>(state.WorldUpdateAllocator);
             NativeArray<LocalTransform> planetTransforms = planetsQuery.ToComponentDataArray<LocalTransform>(state.WorldUpdateAllocator);
+            ComponentLookup<FighterActionSOA> fighterActionSOALookup = SystemAPI.GetComponentLookup<FighterActionSOA>(false);
+            
+            for (int i = 0; i < teamEntities.Length; i++)
+            {
+                if (!state.EntityManager.HasComponent<FighterActionSOA>(teamEntities[i]))
+                { 
+                    var fighterActionSOA = new FighterActionSOA(); 
+                    fighterActionSOA.EntityIndex = new UnsafeList<int>(64, Allocator.Persistent);
+                    fighterActionSOA.EntityVersion = new UnsafeList<int>(64, Allocator.Persistent);
+                    fighterActionSOA.PositionX = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.PositionY = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.PositionZ = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.Radius = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.Importance = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.WorkerImportance = new UnsafeList<float>(64, Allocator.Persistent);
+                    fighterActionSOA.IsOwned = new UnsafeList<byte>(64, Allocator.Persistent);
+                    state.EntityManager.AddComponentData(teamEntities[i], fighterActionSOA);
+                }
+            }
             
             TeamAIJob teamAIJob = new TeamAIJob
             {
@@ -110,7 +129,7 @@ public partial struct TeamAISystem : ISystem
                 
                 TeamManagerLookup = SystemAPI.GetComponentLookup<TeamManager>(false),
                 TeamManagerAILookup = SystemAPI.GetComponentLookup<TeamManagerAI>(false),
-                FighterActionsLookup = SystemAPI.GetBufferLookup<FighterAction>(false),
+                FighterActionSOALookup = SystemAPI.GetComponentLookup<FighterActionSOA>(false),
                 WorkerActionsLookup = SystemAPI.GetBufferLookup<WorkerAction>(false),
                 TraderActionsLookup = SystemAPI.GetBufferLookup<TraderAction>(false),
                 FactoryActionsLookup = SystemAPI.GetBufferLookup<FactoryAction>(false),
@@ -157,6 +176,7 @@ public partial struct TeamAISystem : ISystem
                 UnitTeams = unitTeams,
                 
                 HealthLookup = SystemAPI.GetComponentLookup<Health>(false),
+                FighterActionSOALookup = SystemAPI.GetComponentLookup<FighterActionSOA>(false)
             };
             state.Dependency = teamDefeatedJob.Schedule(state.Dependency);
 
@@ -229,7 +249,7 @@ public partial struct TeamAISystem : ISystem
         public ComponentLookup<TeamManagerAI> TeamManagerAILookup;
 
         [NativeDisableContainerSafetyRestriction]
-        public BufferLookup<FighterAction> FighterActionsLookup;
+        public ComponentLookup<FighterActionSOA> FighterActionSOALookup;
 
         [NativeDisableContainerSafetyRestriction]
         public BufferLookup<WorkerAction> WorkerActionsLookup;
@@ -270,7 +290,6 @@ public partial struct TeamAISystem : ISystem
 
             int teamIndex = TeamLookup[teamEntity].Index;
             TeamManagerAI teamManagerAI = TeamManagerAILookup[teamEntity];
-            DynamicBuffer<FighterAction> fighterActions = FighterActionsLookup[teamEntity];
             DynamicBuffer<WorkerAction> workerActions = WorkerActionsLookup[teamEntity];
             DynamicBuffer<TraderAction> traderActions = TraderActionsLookup[teamEntity];
             DynamicBuffer<FactoryAction> factoryActions = FactoryActionsLookup[teamEntity];
@@ -283,125 +302,135 @@ public partial struct TeamAISystem : ISystem
                 teamManagerAI.Random = GameUtilities.GetDeterministicRandom(teamEntity.Index);
             }
 
-            // Clear buffers
-            fighterActions.Clear();
-            workerActions.Clear();
-            traderActions.Clear();
-            factoryActions.Clear();
-            planetIntels.Clear();
-
-            // Compute statistics about our empire and surroundings
-            ComputeEmpireStatistics(teamIndex, teamPlanetEntities, ref teamManagerAI, ref planetIntels);
-            
-            // Check for team death
-            if (teamManagerAI.EmpireStatistics.OwnedPlanetsCount <= 0)
+            // Clear buffers.
+            if (FighterActionSOALookup.TryGetComponent(teamEntity, out FighterActionSOA fighterActionSOA))
             {
-                teamManagerAI.IsDefeated = true;
-            }
-            else
-            {
-                DynamicBuffer<ShipCollection> shipsCollection = ShipCollectionBufferLookup[ShipsCollectionEntity];
-                DynamicBuffer<BuildingCollection> buildingsCollection =
-                    BuildingCollectionBufferLookup[BuildingsCollectionEntity];
-                NativeList<float> tmpImportances = new NativeList<float>(32, Allocator.Temp);
+                fighterActionSOA.EntityIndex.Clear();
+                fighterActionSOA.EntityVersion.Clear();
+                fighterActionSOA.PositionX.Clear();
+                fighterActionSOA.PositionY.Clear();
+                fighterActionSOA.PositionZ.Clear();
+                fighterActionSOA.Radius.Clear();
+                fighterActionSOA.Importance.Clear();
+                fighterActionSOA.WorkerImportance.Clear();
+                fighterActionSOA.IsOwned.Clear();
+                workerActions.Clear();
+                traderActions.Clear();
+                factoryActions.Clear();
+                planetIntels.Clear();
                 
-                // AI Processors
-                AIProcessor fighterAIProcessor = new AIProcessor(128, Allocator.Temp);
-                AIProcessor workerAIProcessor = new AIProcessor(128, Allocator.Temp);
-                AIProcessor traderAIProcessor = new AIProcessor(128, Allocator.Temp);
-                
-                // Handle creating the list of possible actions that factory AI can choose from
-                // (which ships to build)
-                HandleFactoryActions(ref teamManagerAI, in shipsCollection, ref factoryActions);
+                // Compute statistics about our empire and surroundings
+                ComputeEmpireStatistics(teamIndex, teamPlanetEntities, ref teamManagerAI, ref planetIntels);
 
-                // Compute per-planet actions for ships
-                for (int i = 0; i < planetIntels.Length; i++)
+                // Check for team death
+                if (teamManagerAI.EmpireStatistics.OwnedPlanetsCount <= 0)
                 {
-                    PlanetIntel planetIntel = planetIntels[i];
-
-                    // Calculate values used by AI for this planet
-                    CalculatePlanetStatistics(
-                        in planetIntel,
-                        in teamManagerAI,
-                        out PlanetStatistics planetStatistics);
-
-                    // Actions related to owned planets
-                    if (planetIntel.IsOwned == 1)
-                    {
-                        HandleFighterDefendAction(
-                            ref fighterAIProcessor,
-                            ref fighterActions,
-                            in planetIntel,
-                            in planetStatistics,
-                            in teamManagerAI);
-
-                        HandleWorkerBuildAction(
-                            ref workerAIProcessor,
-                            ref workerActions,
-                            ref buildingsCollection,
-                            in planetIntel,
-                            in planetStatistics,
-                            ref teamManagerAI,
-                            ref tmpImportances);
-
-                        HandleTraderTradeAction(
-                            ref traderAIProcessor,
-                            ref traderActions,
-                            in planetIntel,
-                            in planetStatistics,
-                            in teamManagerAI);
-                    }
-                    // Actions related to non-owned planets
-                    else
-                    {
-                        HandleFighterAttackAction(
-                            ref fighterAIProcessor,
-                            ref fighterActions,
-                            in planetIntel,
-                            in planetStatistics,
-                            in teamManagerAI);
-
-                        HandleWorkerCaptureAction(
-                            ref workerAIProcessor,
-                            ref workerActions,
-                            in planetIntel,
-                            in planetStatistics,
-                            in teamManagerAI);
-                    }
+                    teamManagerAI.IsDefeated = true;
                 }
-
-                // Compute corrected importances after all actions have been registered
-                fighterAIProcessor.ComputeFinalImportances();
-                workerAIProcessor.ComputeFinalImportances();
-                traderAIProcessor.ComputeFinalImportances();
-
-                // Assign corrected importances to actions
+                else
                 {
-                    for (int i = 0; i < fighterActions.Length; i++)
+                    DynamicBuffer<ShipCollection> shipsCollection = ShipCollectionBufferLookup[ShipsCollectionEntity];
+                    DynamicBuffer<BuildingCollection> buildingsCollection =
+                        BuildingCollectionBufferLookup[BuildingsCollectionEntity];
+                    NativeList<float> tmpImportances = new NativeList<float>(32, Allocator.Temp);
+
+                    // AI Processors
+                    AIProcessor fighterAIProcessor = new AIProcessor(128, Allocator.Temp);
+                    AIProcessor workerAIProcessor = new AIProcessor(128, Allocator.Temp);
+                    AIProcessor traderAIProcessor = new AIProcessor(128, Allocator.Temp);
+
+                    // Handle creating the list of possible actions that factory AI can choose from
+                    // (which ships to build)
+                    HandleFactoryActions(ref teamManagerAI, in shipsCollection, ref factoryActions);
+
+                    // Compute per-planet actions for ships
+                    for (int i = 0; i < planetIntels.Length; i++)
                     {
-                        FighterAction c = fighterActions[i];
-                        c.Importance = fighterAIProcessor.GetActionImportance(i);
-                        fighterActions[i] = c;
+                        PlanetIntel planetIntel = planetIntels[i];
+
+                        // Calculate values used by AI for this planet
+                        CalculatePlanetStatistics(
+                            in planetIntel,
+                            in teamManagerAI,
+                            out PlanetStatistics planetStatistics);
+
+                        // Actions related to owned planets
+                        if (planetIntel.IsOwned == 1)
+                        {
+                            HandleFighterDefendAction(
+                                ref fighterAIProcessor,
+                                ref fighterActionSOA,
+                                in planetIntel,
+                                in planetStatistics,
+                                in teamManagerAI);
+
+                            HandleWorkerBuildAction(
+                                ref workerAIProcessor,
+                                ref workerActions,
+                                ref buildingsCollection,
+                                in planetIntel,
+                                in planetStatistics,
+                                ref teamManagerAI,
+                                ref tmpImportances);
+
+                            HandleTraderTradeAction(
+                                ref traderAIProcessor,
+                                ref traderActions,
+                                in planetIntel,
+                                in planetStatistics,
+                                in teamManagerAI);
+                        }
+                        // Actions related to non-owned planets
+                        else
+                        {
+                            HandleFighterAttackAction(
+                                ref fighterAIProcessor,
+                                ref fighterActionSOA,
+                                in planetIntel,
+                                in planetStatistics,
+                                in teamManagerAI);
+
+                            HandleWorkerCaptureAction(
+                                ref workerAIProcessor,
+                                ref workerActions,
+                                in planetIntel,
+                                in planetStatistics,
+                                in teamManagerAI);
+                        }
                     }
 
-                    for (int i = 0; i < workerActions.Length; i++)
-                    {
-                        WorkerAction c = workerActions[i];
-                        c.Importance = workerAIProcessor.GetActionImportance(i);
-                        workerActions[i] = c;
-                    }
+                    // Compute corrected importances after all actions have been registered
+                    fighterAIProcessor.ComputeFinalImportances();
+                    workerAIProcessor.ComputeFinalImportances();
+                    traderAIProcessor.ComputeFinalImportances();
 
-                    for (int i = 0; i < traderActions.Length; i++)
+                    // Assign corrected importances to actions
                     {
-                        TraderAction c = traderActions[i];
-                        c.ImportanceBias = traderAIProcessor.GetActionImportance(i);
-                        traderActions[i] = c;
+                        for (int i = 0; i < fighterActionSOA.EntityIndex.Length; i++)
+                        {
+                            fighterActionSOA.Importance[i] = fighterAIProcessor.GetActionImportance(i);
+                        }
+
+                        for (int i = 0; i < workerActions.Length; i++)
+                        {
+                            WorkerAction c = workerActions[i];
+                            c.Importance = workerAIProcessor.GetActionImportance(i);
+                            workerActions[i] = c;
+                        }
+
+                        for (int i = 0; i < traderActions.Length; i++)
+                        {
+                            TraderAction c = traderActions[i];
+                            c.ImportanceBias = traderAIProcessor.GetActionImportance(i);
+                            traderActions[i] = c;
+                        }
                     }
                 }
             }
 
             // Write back team AI values
             TeamManagerAILookup[teamEntity] = teamManagerAI;
+            FighterActionSOALookup[teamEntity] = fighterActionSOA;
         }
 
         private PlanetIntel GetPlanetIntel(
@@ -826,7 +855,7 @@ public partial struct TeamAISystem : ISystem
 
         private void HandleFighterDefendAction(
             ref AIProcessor fighterAIProcessor,
-            ref DynamicBuffer<FighterAction> fighterActions, 
+            ref FighterActionSOA fighterActions, 
             in PlanetIntel planetIntel, 
             in PlanetStatistics planetStatistics,
             in TeamManagerAI teamManagerAI)
@@ -931,7 +960,7 @@ public partial struct TeamAISystem : ISystem
 
         private void HandleFighterAttackAction(
             ref AIProcessor fighterAIProcessor,
-            ref DynamicBuffer<FighterAction> fighterActions, 
+            ref FighterActionSOA fighterActions, 
             in PlanetIntel planetIntel, 
             in PlanetStatistics planetStatistics,
             in TeamManagerAI teamManagerAI)
@@ -1002,12 +1031,24 @@ public partial struct TeamAISystem : ISystem
         public NativeArray<Team> UnitTeams;
 
         public ComponentLookup<Health> HealthLookup;
+        public ComponentLookup<FighterActionSOA> FighterActionSOALookup;
         
         void Execute(Entity entity, in Team team, in TeamManagerAI teamManagerAI)
         {
             if (teamManagerAI.IsDefeated)
             {
                 ECB.DestroyEntity(entity);
+                var fighterActionSOA = FighterActionSOALookup[entity];
+                fighterActionSOA.EntityIndex.Dispose();
+                fighterActionSOA.EntityVersion.Dispose();
+                fighterActionSOA.PositionX.Dispose();
+                fighterActionSOA.PositionY.Dispose();
+                fighterActionSOA.PositionZ.Dispose();
+                fighterActionSOA.Radius.Dispose();
+                fighterActionSOA.Importance.Dispose();
+                fighterActionSOA.WorkerImportance.Dispose();
+                fighterActionSOA.IsOwned.Dispose();
+                FighterActionSOALookup[entity] = fighterActionSOA;
 
                 // Destroy all units belonging to this team
                 for (int i = 0; i < UnitTeams.Length; i++)

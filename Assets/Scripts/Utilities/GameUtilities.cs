@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -241,6 +242,21 @@ public static class GameUtilities
         considerations.Add(consideration);
         aIProcessor.AddAction(action);
     }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static void AddAction(ref FighterActionSOA fighterAction, ref AIProcessor aIProcessor, in FighterAction consideration, AIAction action)
+    {
+        fighterAction.EntityIndex.Add(consideration.Entity.Index);
+        fighterAction.EntityVersion.Add(consideration.Entity.Version);
+        fighterAction.PositionX.Add(consideration.Position.x);
+        fighterAction.PositionY.Add(consideration.Position.y);
+        fighterAction.PositionZ.Add(consideration.Position.z);
+        fighterAction.Radius.Add(consideration.Radius);
+        fighterAction.Importance.Add(consideration.Importance);
+        fighterAction.WorkerImportance.Add(consideration.WorkerImportance);
+        fighterAction.IsOwned.Add(consideration.IsOwned);
+        aIProcessor.AddAction(action);
+    }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float CalculateProximityImportance(float3 selfPosition, float3 otherPosition, float maxDistanceSqForPlanetProximityImportanceScaling, float2 planetProximityImportanceRemap)
@@ -250,9 +266,46 @@ public static class GameUtilities
         return math.remap(0f, 1f, planetProximityImportanceRemap.x,
             planetProximityImportanceRemap.y, proximityImportance);
     }
-
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static float4 CalculateProximityImportanceSOA(
+                float4 selfPositionX,
+                float4 selfPositionY,
+                float4 selfPositionZ,
+                float4 otherPositionX,
+                float4 otherPositionY,
+                float4 otherPositionZ,
+                float4 maxDistanceSqForPlanetProximityImportanceScaling,
+                float4 planetProximityImportanceRemapX,
+                float4 planetProximityImportanceRemapY)
+    {
+        float4 dx = otherPositionX - selfPositionX;
+        float4 dy = otherPositionY - selfPositionY;
+        float4 dz = otherPositionZ - selfPositionZ;
+        float4 dd = (dx * dx) + (dy * dy) + (dz * dz);
+        float4 proximityImportance = new float4(1f) - math.saturate(dd / maxDistanceSqForPlanetProximityImportanceScaling);
+        return math.remap(new float4(0f), new float4(1f), planetProximityImportanceRemapX, planetProximityImportanceRemapY, proximityImportance);
+    }
+    
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int GetWeightedRandomIndex(float totalWeights, in NativeList<float> importances, ref Random random)
+    {
+        float decision = random.NextFloat(0f, totalWeights);
+        totalWeights = 0f;
+        for (int i = 0; i < importances.Length; i++)
+        {
+            totalWeights += importances[i];
+            if (decision < totalWeights)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static int GetWeightedRandomIndex(float totalWeights, in UnsafeList<float> importances, ref Random random)
     {
         float decision = random.NextFloat(0f, totalWeights);
         totalWeights = 0f;

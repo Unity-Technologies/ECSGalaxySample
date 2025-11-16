@@ -70,7 +70,6 @@ public class TeamManagerAuthoring : MonoBehaviour
                 DesiredTraderValuePerOwnedPlanet = authoring.DesiredTraderValuePerOwnedPlanet,
             });
             AddBuffer<PlanetIntel>(entity);
-            AddBuffer<FighterAction>(entity);
             AddBuffer<WorkerAction>(entity);
             AddBuffer<TraderAction>(entity);
             AddBuffer<FactoryAction>(entity);

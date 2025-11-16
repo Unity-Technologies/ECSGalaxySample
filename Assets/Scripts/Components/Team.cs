@@ -1,4 +1,5 @@
 using Unity.Collections;
+using Unity.Collections.LowLevel.Unsafe;
 using Unity.Entities;
 using Unity.Mathematics;
 
@@ -113,6 +114,28 @@ public struct FighterAction : IBufferElementData
     public float Importance;
     public float WorkerImportance;
     public byte IsOwned;
+}
+
+// This is the Structure of Arrays (SOA) version of the above struct FighterAction.
+// Using SOA is almost always necessary for vectorized/SIMD code because it guarantees
+// that the data in each array is of "the same type" (entity index, position x, radius, etc...)
+// which is what you want so that way you can load multiple values into a single vector/SIMD
+// register.
+public struct FighterActionSOA : IComponentData
+{
+    // Even though the original struct contained an Entity, we need to break the Entity apart so that
+    // each array contains only indices and only versions, not both interleaved in the same array!
+    // Similar reasoning goes for splitting apart the float3 Position into three separate float arrays
+    // (one for each dimension of space).
+    public UnsafeList<int> EntityIndex;
+    public UnsafeList<int> EntityVersion;
+    public UnsafeList<float> PositionX;
+    public UnsafeList<float> PositionY;
+    public UnsafeList<float> PositionZ;
+    public UnsafeList<float> Radius;
+    public UnsafeList<float> Importance;
+    public UnsafeList<float> WorkerImportance;
+    public UnsafeList<byte> IsOwned;
 }
 
 [InternalBufferCapacity(0)]

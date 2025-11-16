@@ -70,7 +70,7 @@ namespace Galaxy
             FighterAIJob fighterAIJob = new FighterAIJob
             {
                 DeltaTime = SystemAPI.Time.DeltaTime,
-                FighterActionsLookup = SystemAPI.GetBufferLookup<FighterAction>(true),
+                FighterActionSOALookup = SystemAPI.GetComponentLookup<FighterActionSOA>(true),
                 LocalToWorldLookup = SystemAPI.GetComponentLookup<LocalToWorld>(true),
                 CachedSpatialDatabase = new CachedSpatialDatabaseRO
                 {
@@ -286,14 +286,14 @@ namespace Galaxy
         {
             public float DeltaTime;
             public CachedSpatialDatabaseRO CachedSpatialDatabase;
-            [ReadOnly] public BufferLookup<FighterAction> FighterActionsLookup;
+            [ReadOnly] public ComponentLookup<FighterActionSOA> FighterActionSOALookup;
             [ReadOnly] public ComponentLookup<LocalToWorld> LocalToWorldLookup;
 
             // Cached data for the lifetime of the job
             [NativeDisableContainerSafetyRestriction]
-            private NativeList<float> _tmpFinalImportances;
+            private UnsafeList<float> _tmpFinalImportances;
 
-            public void Execute(Entity entity, in LocalTransform transform, ref Ship ship, in Team team, ref Fighter fighter, EnabledRefRW<ExecuteAttack> executeAttack)
+            unsafe public void Execute(Entity entity, in LocalTransform transform, ref Ship ship, in Team team, ref Fighter fighter, EnabledRefRW<ExecuteAttack> executeAttack)
             {
                 if (team.IsNonNeutral())
                 {
@@ -374,34 +374,150 @@ namespace Galaxy
                         // Choose a target planet to go to
                         if (fighter.TargetIsEnemyShip == 0)
                         {
-                            if (FighterActionsLookup.TryGetBuffer(team.ManagerEntity,
-                                    out DynamicBuffer<FighterAction> fighterActionsBuffer))
+                            if (FighterActionSOALookup.TryGetComponent(team.ManagerEntity, out FighterActionSOA fighterActionSOA))
                             {
                                 ShipData shipData = ship.ShipData.Value;
 
-                                _tmpFinalImportances.Clear();
                                 float importancesTotal = 0f;
                                 float currentActionImportance = -1f;
-
-                                for (int i = 0; i < fighterActionsBuffer.Length; i++)
+                                
+                                // Pull out all the array pointers into local vars for convenience.
+                                int* entityIndices = fighterActionSOA.EntityIndex.Ptr;
+                                int* entityVersions = fighterActionSOA.EntityVersion.Ptr;
+                                float* positionX = fighterActionSOA.PositionX.Ptr;
+                                float* positionY = fighterActionSOA.PositionY.Ptr;
+                                float* positionZ = fighterActionSOA.PositionZ.Ptr;
+                                float* importance = fighterActionSOA.Importance.Ptr;
+                                float* radius = fighterActionSOA.Radius.Ptr;
+                                int fighterActionsBufferLength = fighterActionSOA.EntityIndex.Length;
+                                
+                                // We need to put the iteration variable of the for loop out here because we will actually have two loops to process all the data,
+                                // the main SIMD loop and an epilog loop.
+                                int i = 0;
+                                
+                                // Set up float4s of the self position. We know all the iterations of the original loop is testing the self position
+                                // against the fighter action position so we will "broadcast" the self position to every component of the float4.
+                                //
+                                // Generally, any variable which is invariant/constant under the loop should have its values broadcasted to all
+                                // components we recreate the effect of having that constant for every iteration.
+                                float4 selfPositionX = new float4(transform.Position.x);
+                                float4 selfPositionY = new float4(transform.Position.y);
+                                float4 selfPositionZ = new float4(transform.Position.z);
+                                float4 maxDistanceSqForPlanetProximityImportanceScaling =
+                                    new float4(shipData.MaxDistanceSqForPlanetProximityImportanceScaling);
+                                float4 planetProximityImportanceRemapX =
+                                    new float4(shipData.PlanetProximityImportanceRemap.x);
+                                float4 planetProximityImportanceRemapY =
+                                    new float4(shipData.PlanetProximityImportanceRemap.y);
+                                int4 navigationTargetEntityIndex = new int4(ship.NavigationTargetEntity.Index);
+                                int4 navigationTargetEntityVersion = new int4(ship.NavigationTargetEntity.Version);
+                                _tmpFinalImportances.Length = fighterActionsBufferLength;
+                                float* _tmpFinalImportancesUnsafePtr = _tmpFinalImportances.Ptr;
+                                
+                                // This is a parallel sum variable to use in the 4x SIMD loop, so we will initialize all components to zero.
+                                // See comments in loop body for more details.
+                                float4 importancesTotal4 = new float4(0f);
+                                
+                                // Fighter actions SIMD process 4 at a time.
+                                //
+                                // This is the main SIMD loop where we've unrolled 4 times so each execution of the loop body
+                                // will always process 4 items. The loop condition here is "as long as there are at least 4 items remaining".
+                                //
+                                // But what happens when you don't have a multiple of 4 items in the fighter actions buffer?
+                                // You need to handle that with an epilog code sequence after this loop to handle any remainders.
+                                for (; (i + 4) <= fighterActionsBufferLength; i += 4)
                                 {
-                                    FighterAction fitghterAction = fighterActionsBuffer[i];
+                                    float4 posX = new float4(positionX[i], positionX[i + 1], positionX[i + 2], positionX[i + 3]);
+                                    float4 posY = new float4(positionY[i], positionY[i + 1], positionY[i + 2], positionY[i + 3]);
+                                    float4 posZ = new float4(positionZ[i], positionZ[i + 1], positionZ[i + 2], positionZ[i + 3]);
+                                    float4 fighterActionImportance4 = new float4(importance[i], importance[i + 1], importance[i + 2], importance[i + 3]);
+                                    float4 proximityImportance = GameUtilities.CalculateProximityImportanceSOA(
+                                        selfPositionX, selfPositionY, selfPositionZ, posX, posY, posZ,
+                                        maxDistanceSqForPlanetProximityImportanceScaling,
+                                        planetProximityImportanceRemapX, planetProximityImportanceRemapY);
+                                    float4 finalImportance = proximityImportance * fighterActionImportance4;
+                                    *(float4*)(_tmpFinalImportancesUnsafePtr + i) = finalImportance;
+                                    
+                                    // The original code performed a sequential sum which causes one loop iteration to depend on
+                                    // the previous iteration. At first glance it seems like this is not parallelizable but since
+                                    // mathematically we can reorder addition we will break apart this sequential sum into 4 parallel
+                                    // sums and then we will do a final sum at the end to find the true importances total.
+                                    //
+                                    // Technically speaking this may not produce *exactly* the same result as the original code because
+                                    // floating point arithmetic is not, in general, associative. If you had to have bitwise exact reproducible
+                                    // results then this would not be valid, but we do not have that requirement here, so we are free to reassociate
+                                    // and perform the sum in whatever order we want.
+                                    importancesTotal4 += finalImportance;
+
+                                    // Scalar update the current action importance since this portion of logic is a bit harder to
+                                    // SIMD process.
+                                    //
+                                    // If you look carefully at the original scalar code, this conditional introduces an order dependence because
+                                    // it's saving the first non negative action importance that happens to match the navigation target entity.
+                                    //
+                                    // The SIMD code must reproduce this order dependence in order to fully reproduce the original behavior so
+                                    // what we will do is simply check if we have a negative current action importance and if we do, we will
+                                    // test all 4 entities at once to see if *any* of them match our target entity version.
+                                    //
+                                    // If any of them do, then we will just check each one in order to see which one should be saved. Because the
+                                    // current action importance will only be set once, this is still very fast and we retain 4x throughput even
+                                    // for this conditional check until the very moment we know we will actually set the current action importance.
+                                    if (currentActionImportance < 0f)
+                                    {
+                                        int4 entityIndex = new int4(entityIndices[i], entityIndices[i + 1], entityIndices[i + 2], entityIndices[i + 3]);
+                                        int4 entityVersion = new int4(entityVersions[i], entityVersions[i + 1], entityVersions[i + 2], entityVersions[i + 3]);
+                                        
+                                        // Compare all 4 entities simultaneously.
+                                        bool4 isNavigationTargetEntity = (entityIndex == navigationTargetEntityIndex) & (entityVersion == navigationTargetEntityVersion);
+                                        
+                                        // Drop down to scalar only if we have a match since that's the only time we will set the current action importance.
+                                        if (math.any(isNavigationTargetEntity))
+                                        {
+                                            // Check each one in order to ensure we have the same order dependent behavior as the original code.
+                                            if (isNavigationTargetEntity.x)
+                                                currentActionImportance = fighterActionImportance4.x;
+                                            else if (isNavigationTargetEntity.y)
+                                                currentActionImportance = fighterActionImportance4.y;
+                                            else if (isNavigationTargetEntity.z)
+                                                currentActionImportance = fighterActionImportance4.z;
+                                            else if (isNavigationTargetEntity.w)
+                                                currentActionImportance = fighterActionImportance4.w;
+                                        }
+                                    }
+                                }
+                                
+                                // Fighter actions epilog.
+                                //
+                                // This is basically the same as the original scalar code and ensures that if we had say
+                                // 7 fighter actions that the first 4 are handled by the above SIMD loop and the last 3
+                                // are handled by this epilog. You will almost always need to have this sort of epilog
+                                // unless you know by some other method that you will always have a multiple of 4.
+                                for (;
+                                     i < fighterActionsBufferLength;
+                                     ++i)
+                                {
+                                    float3 fighterActionPosition = new float3(positionX[i], positionY[i], positionZ[i]);
 
                                     float proximityImportance = GameUtilities.CalculateProximityImportance(
-                                        transform.Position, fitghterAction.Position,
+                                        transform.Position, fighterActionPosition,
                                         shipData.MaxDistanceSqForPlanetProximityImportanceScaling,
                                         shipData.PlanetProximityImportanceRemap);
-                                    float finalImportance = fitghterAction.Importance * proximityImportance;
+                                    float finalImportance = importance[i] * proximityImportance;
 
-                                    _tmpFinalImportances.Add(finalImportance);
+                                    _tmpFinalImportances[i] = finalImportance;
                                     importancesTotal += finalImportance;
                                     
                                     // Try find the current action's new importance
-                                    if (currentActionImportance < 0f && fitghterAction.Entity == ship.NavigationTargetEntity)
+                                    if (currentActionImportance < 0f && new Entity{ Index = entityIndices[i], Version = entityVersions[i] } == ship.NavigationTargetEntity)
                                     {
-                                        currentActionImportance = fitghterAction.Importance;
+                                        currentActionImportance =
+                                            importance[i];
                                     }
                                 }
+                                
+                                // Sum up the SIMD importances into one scalar value and add it to the scalar total that we found from the epilog.
+                                // After this line, we will have the true total.
+                                importancesTotal += importancesTotal4.x + importancesTotal4.y + importancesTotal4.z + importancesTotal4.w;
 
                                 // If couldn't find current action, clear data
                                 if (currentActionImportance < 0f)
@@ -418,14 +534,16 @@ namespace Galaxy
                                     in _tmpFinalImportances, ref persistentRandom);
                                 if (weightedRandomIndex >= 0)
                                 {
-                                    FighterAction fighterAction = fighterActionsBuffer[weightedRandomIndex];
-
                                     // Only pick a different action if the new action is significantly more important
                                     if (_tmpFinalImportances[weightedRandomIndex] > currentActionImportance * 2f)
                                     {
-                                        ship.NavigationTargetEntity = fighterAction.Entity;
-                                        ship.NavigationTargetPosition = fighterAction.Position;
-                                        ship.NavigationTargetRadius = fighterAction.Radius;
+                                        ship.NavigationTargetEntity = new Entity
+                                        {
+                                            Index = entityIndices[weightedRandomIndex],
+                                            Version = entityVersions[weightedRandomIndex]
+                                        };
+                                        ship.NavigationTargetPosition = new float3(positionX[weightedRandomIndex], positionY[weightedRandomIndex], positionZ[weightedRandomIndex]);
+                                        ship.NavigationTargetRadius = radius[weightedRandomIndex];
                                     }
                                 }
                             }
@@ -440,7 +558,7 @@ namespace Galaxy
                 CachedSpatialDatabase.CacheData();
                 if (!_tmpFinalImportances.IsCreated)
                 {
-                    _tmpFinalImportances = new NativeList<float>(64, Allocator.Temp);
+                    _tmpFinalImportances = new UnsafeList<float>(64, Allocator.Temp);
                 }
 
                 return true;
